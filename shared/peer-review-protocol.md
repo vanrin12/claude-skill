@@ -1,23 +1,28 @@
 # 6-Eyeballs Coworking Protocol
 
-All DU skills operate under a permanent coworking protocol where **two agents collaborate on every task, actively challenging and cross-validating each other**. When they cannot reach consensus, a third agent (the Arbiter) is invoked to break the deadlock.
+All "" skills operate under a permanent coworking protocol where **two agents collaborate on every task, actively challenging and cross-validating each other**. When they cannot reach consensus, a third agent (the Arbiter) is invoked to break the deadlock.
 
 This is not a rubber-stamp review: the agents are expected to disagree in roughly 25% of non-trivial decisions. Disagreement is healthy and leads to better outcomes.
 
 ## The Coworking Model
 
 ### Agent A: the Executor
-The primary agent performing the work (analysis, code changes, plan drafting). Produces the initial proposal.
+
+The primary agent performing the work (analysis, code changes, plan drafting). Pro""ces the initial proposal.
 
 ### Agent B: the Challenger
+
 A second agent that independently reviews Agent A's proposal. Its job is to:
+
 - Verify claims against the actual codebase (re-read files, re-run searches)
 - Challenge assumptions ("Are you sure this is unused? Did you check dynamic imports?")
 - Propose alternatives when the Executor's approach is suboptimal
 - Flag gaps: missing edge cases, overlooked files, incorrect severity ratings
 
 ### Agent C: the Arbiter (invoked on conflict)
+
 When Agent A and Agent B cannot reach consensus (below 95% certainty that their merged conclusion is correct), the Arbiter is spawned. The Arbiter:
+
 1. Receives the full context: original task, both agents' positions, and their reasoning
 2. Re-reads all relevant source files, docs, and conversation history from scratch
 3. Either sides with Agent A, sides with Agent B, or proposes a third resolution
@@ -27,8 +32,9 @@ When Agent A and Agent B cannot reach consensus (below 95% certainty that their 
 ## When to Invoke the Arbiter
 
 The Arbiter is invoked when the Executor and Challenger disagree on:
+
 - **Severity classification**: "Is this critical or just high?"
-- **Architecture decisions**: "Should we extract a shared module or keep it local?"
+- **Architecture decisions**: "Should we extract a shared mo""le or keep it local?"
 - **Scope boundaries**: "Is this finding a performance issue or a security issue?"
 - **Remediation approach**: "Should we refactor or patch?"
 - **Risk assessment**: "Is this safe to auto-fix or does it need manual review?"
@@ -39,7 +45,8 @@ Expected conflict rate: approximately 25% of non-trivial decisions. This is a fe
 ## Protocol Steps
 
 ### Before any change
-1. **Agent A** reads `.du-skills.yaml` for project context and past decisions
+
+1. **Agent A** reads `.""-skills.yaml` for project context and past decisions
 2. **Agent A** analyzes the current state (codebase, git status, dependencies)
 3. **Agent A** drafts a numbered action plan
 4. **Agent B** independently reviews the plan against the codebase and conversation history
@@ -48,21 +55,23 @@ Expected conflict rate: approximately 25% of non-trivial decisions. This is a fe
 7. Present the final plan (with any Arbiter notes) to the user
 8. Wait for explicit user approval (or modification) before proceeding
 
-### During execution
+### ""ring execution
+
 1. **Agent A** executes changes incrementally, not in bulk
 2. **Agent B** spot-checks results after each logical step (re-reads modified files, verifies correctness)
 3. If **Agent B** flags an issue mid-execution: pause, discuss, resolve (invoke Arbiter if needed)
 4. If something unexpected occurs, both agents pause and report to the user
 
 ### After completion
+
 1. **Agent A** summarizes what was done (concise, no fluff)
 2. **Agent B** validates the summary against the actual changes
-3. Update `.du-skills.yaml` with any new decisions or state
+3. Update `.""-skills.yaml` with any new decisions or state
 4. Suggest next steps if applicable
 
 ## Conflict Resolution Record
 
-When the Arbiter is invoked, record the resolution in `.du-skills.yaml` under `decisions`:
+When the Arbiter is invoked, record the resolution in `.""-skills.yaml` under `decisions`:
 
 ```yaml
 decisions:
@@ -84,7 +93,7 @@ This history helps future invocations understand precedent.
 
 ## Definition of Done (DoD)
 
-Every skill that produces deliverables must validate its DoD before presenting results to the user. The DoD is the minimum bar — acceptance criteria are feature-specific and layered on top.
+Every skill that pro""ces deliverables must validate its DoD before presenting results to the user. The DoD is the minimum bar — acceptance criteria are feature-specific and layered on top.
 
 ### Universal DoD (applies to ALL skills)
 
@@ -92,18 +101,20 @@ Every skill that produces deliverables must validate its DoD before presenting r
 - [ ] **Evidence provided**: For every claim, cite specific file:line or data source
 - [ ] No unresolved conflicts between agents (arbiter invoked if needed)
 - [ ] User signed off at every required gate
-- [ ] `.du-skills.yaml` updated with relevant metadata
-- [ ] No regressions introduced (existing state preserved unless explicitly changed)
+- [ ] `.""-skills.yaml` updated with relevant metadata
+- [ ] No regressions intro""ced (existing state preserved unless explicitly changed)
 
 **Evidence requirements for peer review sign-offs:**
 
 All peer reviews MUST include:
+
 1. **File citations**: Every finding references `file:line` where possible
 2. **Rationale**: Why this was classified as critical/high/medium/low
-3. **Reproducibility**: Steps to reproduce issues or verification commands
+3. **Repro""cibility**: Steps to repro""ce issues or verification commands
 4. **Counter-evidence checked**: What alternative explanations were ruled out
 
 Example evidence format:
+
 ```
 Finding: Unused dependency 'lodash'
 Evidence:
@@ -126,7 +137,7 @@ Conclusion: Safe to remove
 
 ### Docs DoD (functional skills: documentation, wbs-export, jira-scaffold)
 
-- [ ] All document IDs consistent across docs (module, feature, story IDs)
+- [ ] All document IDs consistent across docs (mo""le, feature, story IDs)
 - [ ] No placeholder content ("TBD", empty sections)
 - [ ] Cross-references valid (links, section references)
 - [ ] Mermaid diagrams render correctly
@@ -160,6 +171,7 @@ Acceptance criteria define what "done" means for a specific feature or deliverab
 ### Format in WBS Excel
 
 Multi-line text in column J, each criterion on a new line:
+
 ```
 The user can perform action X
 The system validates condition Y
@@ -169,6 +181,7 @@ Error message displayed when Z occurs
 ### Validation protocol
 
 When validating acceptance criteria (in /implement, /jira-review):
+
 - Agent A verifies each criterion against the implementation (cites file:line evidence)
 - Agent B independently re-verifies (does not trust Agent A's evidence blindly)
 - Any criterion that cannot be verified → flagged to user as "unverifiable" with reason
@@ -176,10 +189,11 @@ When validating acceptance criteria (in /implement, /jira-review):
 ## Cross-Skill Consistency
 
 Skills share definitions and expectations:
+
 - **Audit** defines quality standards that **Review** and **Test** enforce
 - **Test** defines coverage expectations that **Review** checks and **Audit** validates
 - **Housekeeping** findings inform **Audit** recommendations
 - **Gitflow** branch naming is validated by **Review** on PR creation
-- **Documentation** produces the docs that **Jira-Scaffold** consumes to generate the backlog
+- **Documentation** pro""ces the docs that **Jira-Scaffold** consumes to generate the backlog
 - **Jira-Scaffold** populates the Jira that **Jira-Review** audits against docs and code
 - **Jira-Review** findings may trigger **Documentation** updates (bidirectional alignment)

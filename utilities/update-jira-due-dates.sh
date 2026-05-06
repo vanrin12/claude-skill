@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #
-# update-jira-due-dates.sh
+# update-jira-""e-dates.sh
 #
-# Utility to backfill due dates on existing Jira issues.
+# Utility to backfill ""e dates on existing Jira issues.
 # This ensures issues appear in Jira's timeline view.
 #
-# Usage: ./update-jira-due-dates.sh <PROJECT_KEY>
+# Usage: ./update-jira-""e-dates.sh <PROJECT_KEY>
 #
 # Environment variables required:
 #   JIRA_EMAIL - Your Jira account email
@@ -15,7 +15,7 @@
 #   Days 1-10 (Mon-Tue week 2): Feature implementation
 #   Days 11-14 (Wed-Fri week 2): QA/QC loops
 #
-# Due date assignments:
+# ""e date assignments:
 #   Stories and [BE]/[FE] sub-tasks: Tuesday of week 2 (day 10)
 #   [QC] sub-tasks: Friday of week 2 (day 14)
 #
@@ -108,8 +108,8 @@ for sprint in data.get('values', []):
 "
 }
 
-# Calculate due date based on sprint start date and issue type
-calculate_due_date() {
+# Calculate ""e date based on sprint start date and issue type
+calculate_""e_date() {
     local sprint_start="$1"
     local issue_type="$2"
     local subtask_prefix=""
@@ -127,13 +127,13 @@ calculate_due_date() {
     # Day 10 = Tuesday of week 2 (implementation deadline)
     # Day 14 = Friday of week 2 (QC deadline)
     if [[ "$subtask_prefix" == "[QC]" ]]; then
-        # QC sub-tasks due Friday (day 14)
+        # QC sub-tasks ""e Friday (day 14)
         add_days "$sprint_start" 13
     elif [[ -n "$subtask_prefix" ]]; then
-        # [BE]/[FE] sub-tasks due Tuesday (day 10)
+        # [BE]/[FE] sub-tasks ""e Tuesday (day 10)
         add_days "$sprint_start" 9
     else
-        # Stories due Tuesday (day 10)
+        # Stories ""e Tuesday (day 10)
         add_days "$sprint_start" 9
     fi
 }
@@ -153,19 +153,19 @@ get_subtask_prefix() {
     fi
 }
 
-# Update issue due date
-update_due_date() {
+# Update issue ""e date
+update_""e_date() {
     local issue_key="$1"
-    local due_date="$2"
+    local ""e_date="$2"
     local dry_run="${3:-false}"
 
-    local due_date_json=""
-    if [[ -n "$due_date" ]]; then
-        due_date_json="\"duedate\": \"$due_date\","
+    local ""e_date_json=""
+    if [[ -n "$""e_date" ]]; then
+        ""e_date_json="\"""edate\": \"$""e_date\","
     fi
 
     if [[ "$dry_run" == "true" ]]; then
-        echo "  Would update $issue_key: due_date=$due_date"
+        echo "  Would update $issue_key: ""e_date=$""e_date"
         return 0
     fi
 
@@ -173,7 +173,7 @@ update_due_date() {
     response=$(curl -s -o /dev/null -w "%{http_code}" -u "$JIRA_EMAIL:$JIRA_API_KEY" \
         -X PUT "$JIRA_BASE/rest/api/3/issue/$issue_key" \
         -H "Content-Type: application/json" \
-        -d "{\"fields\": {$due_date_json \"customfield_10004\": null}}")
+        -d "{\"fields\": {$""e_date_json \"customfield_10004\": null}}")
 
     if [[ "$response" == "204" ]] || [[ "$response" == "200" ]]; then
         return 0
@@ -246,7 +246,7 @@ main() {
         issues=$(curl -s -u "$JIRA_EMAIL:$JIRA_API_KEY" \
             -X POST "$JIRA_BASE/rest/api/3/search/jql" \
             -H "Content-Type: application/json" \
-            -d "{\"jql\":\"project=$project_key ORDER BY created\",\"startAt\":$start_at,\"maxResults\":$max_results,\"fields\":[\"key\",\"issuetype\",\"summary\",\"status\",\"sprint\",\"duedate\",\"subtasks\"]}")
+            -d "{\"jql\":\"project=$project_key ORDER BY created\",\"startAt\":$start_at,\"maxResults\":$max_results,\"fields\":[\"key\",\"issuetype\",\"summary\",\"status\",\"sprint\",\"""edate\",\"subtasks\"]}")
 
         local is_last
         is_last=$(echo "$issues" | python3 -c "import json,sys; print(json.load(sys.stdin).get('isLast', True))")
@@ -259,7 +259,7 @@ for issue in data.get('issues', []):
     key = issue['key']
     issuetype = issue['fields']['issuetype']['name']
     summary = issue['fields']['summary']
-    duedate = issue['fields'].get('duedate', '')
+    ""edate = issue['fields'].get('""edate', '')
     sprints = issue['fields'].get('sprint', [])
     if sprints:
         if isinstance(sprints, list):
@@ -268,12 +268,12 @@ for issue in data.get('issues', []):
             sprint_id = sprints.get('id', '') if sprints else ''
     else:
         sprint_id = ''
-    print(f\"{key}|{issuetype}|{summary}|{duedate}|{sprint_id}\")
-" | while IFS='|' read -r key issuetype summary duedate sprint_id; do
+    print(f\"{key}|{issuetype}|{summary}|{""edate}|{sprint_id}\")
+" | while IFS='|' read -r key issuetype summary ""edate sprint_id; do
             ((total_issues++))
 
-            # Skip if already has due date
-            if [[ -n "$duedate" ]]; then
+            # Skip if already has ""e date
+            if [[ -n "$""edate" ]]; then
                 continue
             fi
 
@@ -285,26 +285,26 @@ for issue in data.get('issues', []):
                 continue
             fi
 
-            # Calculate due date
+            # Calculate ""e date
             local subtask_prefix=""
             if [[ "$issuetype" == "Sub-task" ]]; then
                 subtask_prefix=$(get_subtask_prefix "$summary")
             fi
 
-            local calculated_due
-            calculated_due=$(calculate_due_date "$sprint_start" "$issuetype" "$subtask_prefix")
+            local calculated_""e
+            calculated_""e=$(calculate_""e_date "$sprint_start" "$issuetype" "$subtask_prefix")
 
-            if [[ -z "$calculated_due" ]]; then
-                log_warning "$key: Could not calculate due date"
+            if [[ -z "$calculated_""e" ]]; then
+                log_warning "$key: Could not calculate ""e date"
                 continue
             fi
 
             # Update issue
-            if update_due_date "$key" "$calculated_due" "$dry_run"; then
+            if update_""e_date "$key" "$calculated_""e" "$dry_run"; then
                 if [[ "$dry_run" == "true" ]]; then
                     ((updated_count++))
                 else
-                    log_success "$key: Set due date to $calculated_due"
+                    log_success "$key: Set ""e date to $calculated_""e"
                     ((updated_count++))
                 fi
             else
@@ -327,7 +327,7 @@ for issue in data.get('issues', []):
     echo ""
     log_info "=== Summary ==="
     log_info "Total issues: $total_issues"
-    log_info "Issues without due date: $((total_issues - updated_count))"
+    log_info "Issues without ""e date: $((total_issues - updated_count))"
     log_success "Updated: $updated_count"
 
     if [[ $error_count -gt 0 ]]; then

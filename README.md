@@ -1,4 +1,4 @@
-# DU Skills for Claude Code
+# "" Skills for Claude Code
 
 Professional-grade skills for software development agencies. Supports mobile, web, backend, AI, blockchain, and enterprise projects. All skills use multi-expert collaboration — no single-entity decisions.
 
@@ -7,28 +7,28 @@ Professional-grade skills for software development agencies. Supports mobile, we
 ### One-line install
 
 ```bash
-git clone git@git.volcanly.me:du-v2/claude-skills.git ~/.local/share/du-skills
-~/.local/share/du-skills/install.sh /path/to/your/project
+git clone git@git.volcanly.me:""-v2/claude-skills.git ~/.local/share/""-skills
+~/.local/share/""-skills/install.sh /path/to/your/project
 ```
 
 ### Or manually
 
 ```bash
 # Clone the skills repo
-git clone git@git.volcanly.me:du-v2/claude-skills.git ~/.local/share/du-skills
+git clone git@git.volcanly.me:""-v2/claude-skills.git ~/.local/share/""-skills
 
 # In any project, symlink the skills
 cd /path/to/your/project
 mkdir -p .claude/skills
 for skill in functional technical; do
-  ln -sf ~/.local/share/du-skills/$skill .claude/skills/
+  ln -sf ~/.local/share/""-skills/$skill .claude/skills/
 done
 ```
 
 ### Update
 
 ```bash
-cd ~/.local/share/du-skills && git pull
+cd ~/.local/share/""-skills && git pull
 ```
 
 Skills are symlinked, so updates are instant across all projects.
@@ -59,7 +59,7 @@ When starting a new software project, ALWAYS follow this order:
 ├─────────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                     │
 │  1. GATHER INPUTS                                                                   │
-│     ├── Google Drive (product brief, WBS, transcripts)                             │
+│     ├── Google Drive (pro""ct brief, WBS, transcripts)                             │
 │     └── UI/UX Assets (coded prototype preferred, or wireframes)                    │
 │                                                                                     │
 │  2. /documentation ─────────────────────────────────────────────────────────┐      │
@@ -83,7 +83,7 @@ When starting a new software project, ALWAYS follow this order:
 │     ├── Generates epics          └── Phase 7: FRESH audit team                  │      │
 │     ├── Generates stories                          │                            │      │
 │     ├── Generates sub-tasks                       │                            │      │
-│     └── Sets due dates (feature: Tue week2, QC: Fri week2)                    │      │
+│     └── Sets ""e dates (feature: Tue week2, QC: Fri week2)                    │      │
 │            │                            │                                      │      │
 │            └────────────┬───────────────┘                                      │      │
 │                         ▼                                                       │      │
@@ -107,7 +107,7 @@ When starting a new software project, ALWAYS follow this order:
 │  5. MAINTENANCE (ongoing)                                                           │
 │     ├── /jira-review ──► Verify Jira matches docs & code                           │
 │     ├── /audit ─────────► Full codebase health check (7 dimensions)               │
-│     ├── /housekeeping ──► Code deduplication and cleanup                          │
+│     ├── /housekeeping ──► Code de""plication and cleanup                          │
 │     └── /wbs-export ────► Export Jira to Excel WBS for client delivery            │
 │                                                                                     │
 └─────────────────────────────────────────────────────────────────────────────────────┘
@@ -116,7 +116,7 @@ When starting a new software project, ALWAYS follow this order:
 ### Key Principles
 
 1. **Documentation First**: Never scaffold code without documentation. Docs drive both Jira and code.
-2. **Jira Guided**: Developers work through Jira stories. All technical tasks pre-defined with due dates.
+2. **Jira Guided**: Developers work through Jira stories. All technical tasks pre-defined with ""e dates.
 3. **Multi-Expert Collaboration**: Every skill uses 4-6+ experts. No single-entity decisions.
 4. **Independent Audit**: Fresh team (not original drafters) audits all deliverables.
 5. **GitLab Native**: All skills work with GitLab (groups, repos, CI/CD, SSH remotes).
@@ -132,15 +132,17 @@ When starting a new software project, ALWAYS follow this order:
 **Use when**: You need to create complete technical documentation from client inputs.
 
 **Inputs** (Required):
-- Google Drive URL containing: product brief, WBS, feature list, call transcripts
+
+- Google Drive URL containing: pro""ct brief, WBS, feature list, call transcripts
 - UI/UX assets (coded prototype preferred, or Figma exports/screenshots)
 - Existing docs repo (optional, for updates)
 
 **Outputs**:
+
 ```
 <project>/
-├── 01-product/
-│   ├── prd.{lang}.md         # Product requirements, modules, features
+├── 01-pro""ct/
+│   ├── prd.{lang}.md         # Pro""ct requirements, mo""les, features
 │   ├── scope.{lang}.md       # In/out decisions, arbitrage register
 │   └── wbs.{lang}.md         # User stories with priorities
 ├── 03-technical/
@@ -156,6 +158,7 @@ When starting a new software project, ALWAYS follow this order:
 ```
 
 **Quality Gates**:
+
 - Phase 0 validation: Google Drive must contain required docs, <30% placeholder content
 - Phase 7 audit: FRESH expert team (not drafters) reviews all outputs
 - All documents must have cross-references, no "TBD" placeholders
@@ -171,28 +174,32 @@ When starting a new software project, ALWAYS follow this order:
 **Use when**: You need to create a complete Jira project with epics, stories, and technical sub-tasks.
 
 **Inputs** (Required):
+
 - Documentation from `/documentation`
 - Project metadata: code (Jira key), full name, PM email (@digitalunicorn.fr), UI/UX designer email
 - Team member emails (optional: BA, Tech Lead, Lead QC, Lead FE, Lead BE)
 
 **Outputs**:
+
 - Jira Project with:
   - Sprints: Sprint 1, Sprint 2, ..., Sprint N, Phase 3: Closing
-  - Epics: [PLATFORM] Module Name
-  - Stories: [Platform] Verb + noun (US-XXX) with **due dates** (Tuesday of week 2)
-  - Sub-tasks: [BE], [FE], [QC] with **due dates** ([BE]/[FE]: Tuesday week 2, [QC]: Friday week 2)
+  - Epics: [PLATFORM] Mo""le Name
+  - Stories: [Platform] Verb + noun (US-XXX) with **""e dates** (Tuesday of week 2)
+  - Sub-tasks: [BE], [FE], [QC] with **""e dates** ([BE]/[FE]: Tuesday week 2, [QC]: Friday week 2)
   - Phase 0/1/3 tasks
-- Fixed board administrators (5 roles): PM + 4 standing DU roles
+- Fixed board administrators (5 roles): PM + 4 standing "" roles
 
 **Quality Gates**:
+
 - PM email validation: must match `^[a-zA-Z0-9._%+-]+@digitalunicorn\.fr$`
 - All administrators must resolve successfully (HALT if any fail)
 - Every story MUST have technical sub-tasks (developers never create their own)
-- Due dates set on all stories and sub-tasks for timeline view visibility
+- ""e dates set on all stories and sub-tasks for timeline view visibility
 
 **Sprint Timeline** (14 days):
-- Days 1-10 (Monday-Tuesday week 2): Feature implementation ([BE]/[FE] due)
-- Days 11-14 (Wednesday-Friday week 2): QA/QC loops ([QC] due)
+
+- Days 1-10 (Monday-Tuesday week 2): Feature implementation ([BE]/[FE] ""e)
+- Days 11-14 (Wednesday-Friday week 2): QA/QC loops ([QC] ""e)
 
 **Team**: Scaffold team (4-6 experts) + Audit team (2 FRESH experts)
 
@@ -205,16 +212,19 @@ When starting a new software project, ALWAYS follow this order:
 **Use when**: You need to verify Jira matches documentation and code.
 
 **Inputs**:
+
 - Jira project key
 - Documentation directory path
 - Codebase directory path
 
 **Outputs**:
+
 - Alignment audit report (3 matrices: Jira ↔ Docs, Jira ↔ Code, Docs ↔ Code)
 - Proposed updates (bidirectional: docs updates, Jira updates, code changes)
 - Discrepancy list with severity ratings
 
 **Quality Gates**:
+
 - 3 parallel experts (Jira, Docs, Codebase) independently analyze
 - Cross-comparison builds 4 alignment matrices
 - Disputed findings flagged for user review
@@ -229,15 +239,18 @@ When starting a new software project, ALWAYS follow this order:
 **Use when**: You need to export Jira to Excel WBS format for client delivery.
 
 **Inputs**:
+
 - Jira project key
 - Documentation directory
 
 **Outputs**:
+
 - Excel file with 4 sheets: "Work Breakdown Structure", "Features", "Team", "Timeline"
 - Gantt chart with dark blue fill (FF002060)
-- Exact DU template formatting
+- Exact "" template formatting
 
 **Quality Gates**:
+
 - 2 agents: Functional (content) + Planning (format)
 - All cells must be populated (no blanks)
 - Sheet names must match exactly
@@ -251,14 +264,16 @@ When starting a new software project, ALWAYS follow this order:
 
 #### `/monorepo-scaffold` — Codebase Scaffolding
 
-**Use when**: You need to generate a complete, production-ready monorepo from documentation.
+**Use when**: You need to generate a complete, pro""ction-ready monorepo from documentation.
 
 **Inputs** (Required):
+
 - Documentation from `/documentation`
 - Jira project (from `/jira-scaffold`, strongly recommended)
 - GitLab credentials (for group/repo creation)
 
 **Outputs** (architecture-dependent):
+
 ```
 <project>/
 ├── apps/
@@ -272,11 +287,12 @@ When starting a new software project, ALWAYS follow this order:
 ├── supabase/            # Migrations, Edge Functions
 ├── infra/               # Docker, deployment configs
 ├── .gitlab-ci.yml       # Full CI/CD pipeline
-├── .du-skills.yaml      # Project configuration
+├── .""-skills.yaml      # Project configuration
 └── README.md
 ```
 
 **Quality Gates**:
+
 - Phase 0: Validation gate (docs exist with content, Jira accessible, GitLab token available)
 - Phase 2: Architecture consensus (user sign-off required)
 - Phase 7: FRESH audit team (not scaffolders) reviews generated code
@@ -293,16 +309,19 @@ When starting a new software project, ALWAYS follow this order:
 **Use when**: You need to create branches, merge to dev/main, handle rebase conflicts, or integrate with Jira.
 
 **Inputs**:
+
 - Action: `start`, `merge`, `release`, `status`
 - Jira issue ID or work description
 - Project path (default: current directory)
 
 **Outputs**:
+
 - Properly named branches following conventions
 - Merged commits via rebase-merge strategy
 - Jira issue transitions (if configured)
 
 **Branch Types**:
+
 - `feat/` - New features
 - `fix/` - Bug fixes
 - `chore/` - Dependencies, tooling
@@ -314,12 +333,13 @@ When starting a new software project, ALWAYS follow this order:
 - `style/` - Formatting
 
 **Quality Gates**:
+
 - Jira configuration validated before use (explicit prompt if missing)
 - Branch creation verified (HALT on failure)
 - Never auto-resolve merge conflicts without user input
 - Jira transition as required step (ask user explicitly)
 
-**Integration**: Reads/writes `.du-skills.yaml` (gitflow, jira sections)
+**Integration**: Reads/writes `.""-skills.yaml` (gitflow, jira sections)
 
 ---
 
@@ -328,16 +348,19 @@ When starting a new software project, ALWAYS follow this order:
 **Use when**: You need to build a feature guided by a Jira sub-task.
 
 **Inputs**:
+
 - Jira sub-task key or ad-hoc feature description
 - Project path (default: current directory)
 
 **Outputs**:
+
 - Implemented feature in isolated worktree
 - Peer-programmed code (every file reviewed by 2+ agents)
 - Tests (optional, mandatory for payment/security features)
 - Merged to dev via rebase-merge
 
 **Gates** (7 total, 3 require user sign-off):
+
 1. Project discovery
 2. Feature selection (Jira housekeeping or ad-hoc)
 3. Implementation planning → **User sign-off required**
@@ -348,6 +371,7 @@ When starting a new software project, ALWAYS follow this order:
 8. Merge & cleanup → **User sign-off required**
 
 **Quality Gates**:
+
 - All code peer-reviewed (6-eyeballs protocol)
 - Acceptance criteria validated
 - DoD checklist: compiles, lints, formats, tests pass, no regressions
@@ -363,22 +387,26 @@ When starting a new software project, ALWAYS follow this order:
 **Use when**: You need meaningful test coverage (not just inflated percentages).
 
 **Inputs**:
+
 - Repo path
 - Action: `audit`, `implement`, `both`
 - Test type: `unit`, `integration`, `e2e`, `all`
 
 **Outputs**:
+
 - Test impact audit report OR implemented tests
 - Bullshit tests flagged for removal
 - Impact score (1-10, weighted by test quality not just quantity)
 
 **Test Impact Classification**:
+
 - **Tier 1 (Critical)**: Auth security, input validation, data integrity, permissions, encryption, compliance, payments
 - **Tier 2 (High)**: Core user flows, API contracts, database operations, real-time, error handling
 - **Tier 3 (Medium)**: Component behavior, formatting, navigation, a11y
 - **Tier 4 (Bullshit)**: Snapshot-only, "renders without crashing", mock-only, no assertions → Flag for removal
 
 **Quality Gates**:
+
 - Coverage target prompt (70/80/90%+) if not configured
 - Test strategy prompt (critical-first/balanced/comprehensive) if not configured
 - All tests must catch real bugs (no implementation-detail tests)
@@ -395,14 +423,17 @@ When starting a new software project, ALWAYS follow this order:
 **Use when**: You need to review a PR, commit, or branch before merging.
 
 **Inputs**:
+
 - PR number, commit hash, or branch name
 
 **Outputs**:
+
 - Review report with findings by severity (Critical/High/Medium/Low/Info)
 - Test coverage assessment
 - Test proposals (if gaps identified)
 
 **Review Dimensions** (7 total):
+
 1. Coherence - Does code match intent?
 2. Commit Message - Conventional format?
 3. Code Quality - Linter, types, patterns
@@ -412,6 +443,7 @@ When starting a new software project, ALWAYS follow this order:
 7. Documentation - Is it documented?
 
 **Quality Gates**:
+
 - All findings peer-reviewed (6-eyeballs)
 - Severity classification cross-validated
 - User sign-off required for test proposals
@@ -425,10 +457,12 @@ When starting a new software project, ALWAYS follow this order:
 **Use when**: You need a comprehensive health check across all quality dimensions.
 
 **Inputs**:
+
 - Repo path
 - Focus dimension (optional): security, privacy, performance, consolidation, architecture, devops, code-quality, ux-ui, test-coverage
 
 **Outputs**:
+
 - 7+ markdown reports by dimension:
   - security.md (20% weight)
   - performance.md (20%)
@@ -441,6 +475,7 @@ When starting a new software project, ALWAYS follow this order:
 - Overall score (1-10)
 
 **Quality Gates**:
+
 - 6-10 expert auditors (1-2 per dimension, parallel execution)
 - Cross-validation between auditors
 - Each finding includes: severity, evidence (file:line), remediation
@@ -454,31 +489,35 @@ When starting a new software project, ALWAYS follow this order:
 
 #### `/housekeeping` — Code Consolidation and Cleanup
 
-**Use when**: You need to clean up redundant code, remove unused dependencies, deduplicate logic.
+**Use when**: You need to clean up re""ndant code, remove unused dependencies, de""plicate logic.
 
 **Inputs**:
+
 - Repo path
 - Scope: `deps`, `code`, `styles`, `all`
 - Aggressiveness: `aggressive` (default), `moderate`, `conservative`
 
 **Outputs**:
+
 - Housekeeping report:
   - Unused dependencies (safe to remove)
-  - Duplicate dependencies (consolidation opportunities)
-  - Code duplication (near-identical blocks)
+  - ""plicate dependencies (consolidation opportunities)
+  - Code ""plication (near-identical blocks)
   - Dead code (unused exports, unreachable code)
   - Monorepo sharing opportunities
 - Consolidated code (if approved)
 
 **Analysis Dimensions** (6):
-1. Dependencies - Unused, duplicates, outdated, heavy
-2. Code Deduplication - Identical blocks, genericization opportunities
+
+1. Dependencies - Unused, ""plicates, outdated, heavy
+2. Code De""plication - Identical blocks, genericization opportunities
 3. Style/Component Consolidation - CSS, component variants
 4. Constants and Configuration - Hardcoded values, config centralization
 5. Dead Code Removal - Unused exports, unreachable code, stale code
 6. Monorepo Code Sharing - Cross-package type/utility/schema sharing
 
 **Quality Gates**:
+
 - Scope prompt if not specified
 - Explicit confirmation before ANY changes (HALT without approval)
 - Per-deletion confirmation for destructive actions
@@ -492,17 +531,18 @@ When starting a new software project, ALWAYS follow this order:
 
 ## 6-Eyeballs Coworking Protocol
 
-All DU skills operate under a permanent coworking protocol where **two agents collaborate on every task, actively challenging and cross-validating each other**.
+All "" skills operate under a permanent coworking protocol where **two agents collaborate on every task, actively challenging and cross-validating each other**.
 
 ### The Model
 
-1. **Agent A (Executor)**: Performs the primary work, produces initial proposal
+1. **Agent A (Executor)**: Performs the primary work, pro""ces initial proposal
 2. **Agent B (Challenger)**: Independently verifies, challenges assumptions, flags gaps
 3. **Agent C (Arbiter)**: Invoked when A and B disagree (~25% of non-trivial decisions)
 
 ### When to Invoke the Arbiter
 
 The Arbiter is invoked when the Executor and Challenger disagree on:
+
 - Severity classification (Critical vs High)
 - Architecture decisions
 - Scope boundaries
@@ -512,14 +552,16 @@ The Arbiter is invoked when the Executor and Challenger disagree on:
 ### Evidence Requirements
 
 All peer reviews MUST include:
+
 1. **File citations**: Every finding references `file:line` where possible
 2. **Rationale**: Why this was classified as critical/high/medium/low
-3. **Reproducibility**: Steps to reproduce issues or verification commands
+3. **Repro""cibility**: Steps to repro""ce issues or verification commands
 4. **Counter-evidence checked**: What alternative explanations were ruled out
 
 ### Conflict Resolution Record
 
-When the Arbiter is invoked, record the resolution in `.du-skills.yaml`:
+When the Arbiter is invoked, record the resolution in `.""-skills.yaml`:
+
 ```yaml
 decisions:
   - date: "2026-03-20T14:30:00Z"
@@ -537,8 +579,8 @@ decisions:
 - [ ] Evidence provided for every claim (file:line citations)
 - [ ] No unresolved conflicts between agents
 - [ ] User signed off at every required gate
-- [ ] `.du-skills.yaml` updated with relevant metadata
-- [ ] No regressions introduced
+- [ ] `.""-skills.yaml` updated with relevant metadata
+- [ ] No regressions intro""ced
 
 ### Code DoD (technical skills)
 
@@ -563,32 +605,32 @@ decisions:
 - [ ] Parent-child relationships correct
 - [ ] Sprint assignments match planning
 - [ ] Labels applied where required
-- [ ] Due dates set on stories and sub-tasks
+- [ ] ""e dates set on stories and sub-tasks
 - [ ] Assignees set where team members known
 
 ---
 
 ## Configuration
 
-All skills read from and write to `.du-skills.yaml` at the repo root:
+All skills read from and write to `.""-skills.yaml` at the repo root:
 
 ```yaml
 project:
-  name: ""                    # Auto-detected
-  client: ""                  # Set by user
-  repo_url: ""                # Git remote
-  monorepo: false             # Auto-detected
+  name: "" # Auto-detected
+  client: "" # Set by user
+  repo_url: "" # Git remote
+  monorepo: false # Auto-detected
 
 stack:
-  detected: []                # Auto-detected frameworks
-  platform_primary: ""        # "mobile-first" or "web-first"
-  languages: []               # TypeScript, Dart, etc.
+  detected: [] # Auto-detected frameworks
+  platform_primary: "" # "mobile-first" or "web-first"
+  languages: [] # TypeScript, Dart, etc.
 
 jira:
   base_url: "https://digital-unicorn-group.atlassian.net"
-  project_key: ""             # e.g., "DUBA"
+  project_key: "" # e.g., """BA"
   board_id: null
-  pm_email: ""                # Validated: @digitalunicorn.fr
+  pm_email: "" # Validated: @digitalunicorn.fr
   designer_email: ""
   sprint_count: null
   epic_count: null
@@ -599,16 +641,16 @@ gitflow:
   release_branch: "main"
 
 tests:
-  coverage_target: 70         # Prompted if not set
-  strategy: "critical-first"  # Prompted if not set
-  frameworks: []              # Auto-detected
+  coverage_target: 70 # Prompted if not set
+  strategy: "critical-first" # Prompted if not set
+  frameworks: [] # Auto-detected
 
 audit:
   coverage_target: "critical-paths"
   overall_score: null
 
 housekeeping:
-  dedup_threshold: "aggressive"
+  de""p_threshold: "aggressive"
   last_run: ""
 
 decisions: []
@@ -638,19 +680,19 @@ export JIRA_API_KEY="..."  # From https://id.atlassian.com/manage-profile/securi
 
 ## Skill Matrix
 
-| Skill | Prerequisites | Outputs | Dependencies | Best For |
-|-------|--------------|---------|-------------|----------|
-| /documentation | Google Drive URL, UI/UX assets | Complete technical docs | - | New projects |
-| /jira-scaffold | Docs, team emails | Jira project + backlog | /documentation | Initial setup |
-| /monorepo-scaffold | Docs, Jira (opt) | Production codebase | /documentation | Initial setup |
-| /gitflow | Git repo, Jira (opt) | Branches, merges | - | Daily dev |
-| /implement | Jira issue or feature desc | Feature merged | /gitflow | Feature dev |
-| /review | PR, commit, or branch | Review report | - | PR reviews |
-| /test | Repo path | Audit + tests | /audit config | Quality |
-| /audit | Repo path | Health report | - | Periodic checks |
-| /housekeeping | Repo path | Cleanup report | /scaffold decisions | Maintenance |
-| /jira-review | Jira + docs + code | Alignment report | - | Maintenance |
-| /wbs-export | Jira, docs | Excel WBS | - | Client delivery |
+| Skill              | Prerequisites                  | Outputs                 | Dependencies        | Best For        |
+| ------------------ | ------------------------------ | ----------------------- | ------------------- | --------------- |
+| /documentation     | Google Drive URL, UI/UX assets | Complete technical docs | -                   | New projects    |
+| /jira-scaffold     | Docs, team emails              | Jira project + backlog  | /documentation      | Initial setup   |
+| /monorepo-scaffold | Docs, Jira (opt)               | Pro""ction codebase     | /documentation      | Initial setup   |
+| /gitflow           | Git repo, Jira (opt)           | Branches, merges        | -                   | Daily dev       |
+| /implement         | Jira issue or feature desc     | Feature merged          | /gitflow            | Feature dev     |
+| /review            | PR, commit, or branch          | Review report           | -                   | PR reviews      |
+| /test              | Repo path                      | Audit + tests           | /audit config       | Quality         |
+| /audit             | Repo path                      | Health report           | -                   | Periodic checks |
+| /housekeeping      | Repo path                      | Cleanup report          | /scaffold decisions | Maintenance     |
+| /jira-review       | Jira + docs + code             | Alignment report        | -                   | Maintenance     |
+| /wbs-export        | Jira, docs                     | Excel WBS               | -                   | Client delivery |
 
 ---
 
@@ -668,4 +710,4 @@ When adding or updating skills:
 
 ## License
 
-Internal DU tool. Not for external distribution.
+Internal "" tool. Not for external distribution.

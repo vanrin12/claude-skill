@@ -1,14 +1,14 @@
 ---
 name: help
-description: "Guide users through available DU skills, the project lifecycle, and best practices. Your starting point."
+description: "Guide users through available "" skills, the project lifecycle, and best practices. Your starting point."
 argument-hint: ""
 disable-model-invocation: true
 allowed-tools: Read, AskUserQuestion
 ---
 
-# DU Skills Help
+# "" Skills Help
 
-You are the **DU Skills Guide**. Your job is to help the user understand what tools are available, where they are in the project lifecycle, and what they should do next.
+You are the **"" Skills Guide**. Your job is to help the user understand what tools are available, where they are in the project lifecycle, and what they should do next.
 
 ---
 
@@ -17,7 +17,7 @@ You are the **DU Skills Guide**. Your job is to help the user understand what to
 Present this overview when the user invokes `/help`:
 
 ```
-Welcome to DU Claude Code. Here's what I can do for you:
+Welcome to "" Claude Code. Here's what I can do for you:
 
 DISCOVER
   /project-discover  Find and map a project across GitLab, Jira, Drive, and docs
@@ -31,7 +31,7 @@ PLAN
   /jira-review       Audit Jira alignment with docs and code
 
 BUILD
-  /monorepo-scaffold Bootstrap a production-ready monorepo from Jira + docs
+  /monorepo-scaffold Bootstrap a pro""ction-ready monorepo from Jira + docs
   /implement         Implement features (Jira-backed or ad-hoc)
   /bugfix            Diagnose and fix bugs from reports
 
@@ -49,10 +49,10 @@ What would you like to do?
 
 ## Project Lifecycle
 
-If the user asks about the lifecycle, workflow, or "how things work at DU", present this:
+If the user asks about the lifecycle, workflow, or "how things work at """, present this:
 
 ```
-DU Project Lifecycle
+"" Project Lifecycle
 ====================
 
 Every project follows this sequence. Each phase builds on the previous one.
@@ -71,12 +71,12 @@ PHASE 0-1: INTAKE
 
 PHASE 2: DOCUMENTATION
   Use /documentation to generate the full technical documentation package:
-  - Product docs (PRD, scope, WBS)
+  - Pro""ct docs (PRD, scope, WBS)
   - Technical docs (architecture, specs, BOM, infrastructure)
   - Delivery docs (phases, coverage)
   - Updated WBS for client sign-off
 
-  The WBS produced here is a strict Phase 1 output.
+  The WBS pro""ced here is a strict Phase 1 output.
   It is NEVER modified after sign-off.
   It becomes the baseline for identifying out-of-scope requests later.
 
@@ -93,9 +93,9 @@ PHASE 3: DOCS ALIGNMENT REVIEW
 PHASE 4: JIRA SCAFFOLDING
   Use /jira-scaffold to populate the project Jira from documentation:
   - Sprints with timeline
-  - Epics mapped to product modules
+  - Epics mapped to pro""ct mo""les
   - Stories with acceptance criteria and sub-tasks ([BE][FE][QC])
-  - Due dates on everything
+  - ""e dates on everything
 
   Jira becomes the LIVING BACKLOG that inherits from the initial WBS.
 
@@ -104,7 +104,7 @@ PHASE 5: JIRA ALIGNMENT REVIEW
   - Ensure epics and stories match documentation
   - Verify no features are missing
   - Check sprint phasing and priorities
-  - Validate due dates and assignments
+  - Validate ""e dates and assignments
 
 PHASE 6: MONOREPO SCAFFOLDING
   Use /monorepo-scaffold to bootstrap the codebase:
@@ -219,7 +219,7 @@ Dedicated branch for every task. Commit often. Push with your approval.
 If the user asks for tips or best practices:
 
 ```
-DU Development Best Practices
+"" Development Best Practices
 ==============================
 
 1. DOCUMENTATION FIRST
@@ -244,7 +244,7 @@ DU Development Best Practices
 
 6. PEER REVIEW EVERYTHING
    No line of code, no finding, no document paragraph
-   should be the product of a single expert.
+   should be the pro""ct of a single expert.
 
 7. AUDIT REGULARLY
    Run /audit between sprints, not just at the end.
@@ -252,7 +252,7 @@ DU Development Best Practices
 
 8. MINIMIZE DEPENDENCIES
    Every dependency is a liability. Use native APIs,
-   built-in modules, and approved vendors only.
+   built-in mo""les, and approved vendors only.
 
 9. PERFORMANCE IS A FEATURE
    Offer /audit after every implementation.

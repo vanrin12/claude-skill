@@ -1,6 +1,6 @@
-# DU Skills Configuration Schema
+# "" Skills Configuration Schema
 
-All DU skills read from and write to `.du-skills.yaml` at the repo root where they are invoked. This file persists concise functional information, target architecture, and past user decisions so that skills stay consistent across invocations.
+All "" skills read from and write to `.""-skills.yaml` at the repo root where they are invoked. This file persists concise functional information, target architecture, and past user decisions so that skills stay consistent across invocations.
 
 ## Schema Validation
 
@@ -10,7 +10,7 @@ Skills MUST validate their configuration sections before use. Invalid configurat
 
 ```python
 def validate_config(config: dict) -> list[str]:
-    """Validate .du-skills.yaml and return list of errors. Empty list = valid."""
+    """Validate .""-skills.yaml and return list of errors. Empty list = valid."""
     errors = []
 
     # Required top-level sections
@@ -58,34 +58,34 @@ def load_config(path: str) -> dict:
 
 ### Required vs Optional Fields
 
-| Section | Field | Required | Default |
-|---------|-------|----------|---------|
-| project | name | No (auto-detected) | - |
-| project | client | No | - |
-| project | repo_url | No | - |
-| stack | detected | No (auto-detected) | [] |
-| stack | platform_primary | No | - |
-| jira | base_url | Yes* if jira section exists | - |
-| jira | project_key | Yes* if jira section exists | - |
-| gitflow | base_branch | No | "dev" |
-| gitflow | release_branch | No | "main" |
-| tests | coverage_target | No | 70 |
-| tests | strategy | No | "critical-first" |
+| Section | Field            | Required                     | Default          |
+| ------- | ---------------- | ---------------------------- | ---------------- |
+| project | name             | No (auto-detected)           | -                |
+| project | client           | No                           | -                |
+| project | repo_url         | No                           | -                |
+| stack   | detected         | No (auto-detected)           | []               |
+| stack   | platform_primary | No                           | -                |
+| jira    | base_url         | Yes\* if jira section exists | -                |
+| jira    | project_key      | Yes\* if jira section exists | -                |
+| gitflow | base_branch      | No                           | "dev"            |
+| gitflow | release_branch   | No                           | "main"           |
+| tests   | coverage_target  | No                           | 70               |
+| tests   | strategy         | No                           | "critical-first" |
 
-*Required when the section is present. Missing sections are skipped.
+\*Required when the section is present. Missing sections are skipped.
 
 ## Schema
 
 ```yaml
-# .du-skills.yaml : DU Skills shared configuration
-# Auto-generated and maintained by DU skills. Manual edits are fine.
+# .""-skills.yaml : "" Skills shared configuration
+# Auto-generated and maintained by "" skills. Manual edits are fine.
 
 project:
   name: ""                    # Project name (auto-detected from package.json, pubspec.yaml, etc.)
   client: ""                  # Client name (set by user)
   repo_url: ""                # Git remote URL
   monorepo: false             # Whether this is a monorepo
-  submodules: false           # Whether git submodules are used
+  submo""les: false           # Whether git submo""les are used
 
 stack:
   detected: []                # Auto-detected stack components (e.g. ["expo", "supabase", "postgresql"])
@@ -97,22 +97,22 @@ stack:
   database: []                # Databases (e.g. ["postgresql", "redis"])
   languages: []               # Languages (e.g. ["typescript", "dart"])
 
-du_services:                  # DU platform services configured for this project
-  api_key_env: "DU_API_KEY"   # Env var name for the DU API key
+""_services:                  # "" platform services configured for this project
+  api_key_env: """_API_KEY"   # Env var name for the "" API key
   maps:
-    enabled: false             # Whether DU Maps is used (replaces Google Maps, Mapbox, etc.)
+    enabled: false             # Whether "" Maps is used (replaces Google Maps, Mapbox, etc.)
     url: "https://maps.v2.volcanly.me"
   s3:
-    enabled: false             # Whether DU S3 is used (replaces AWS S3, R2, etc.)
+    enabled: false             # Whether "" S3 is used (replaces AWS S3, R2, etc.)
     url: "https://s3.v2.volcanly.me"
   removebg:
-    enabled: false             # Whether DU RemoveBG is used (replaces remove.bg)
+    enabled: false             # Whether "" RemoveBG is used (replaces remove.bg)
     url: "https://removebg.v2.volcanly.me"
   vectorize:
-    enabled: false             # Whether DU Vectorize is used (replaces Vectorizer.ai)
+    enabled: false             # Whether "" Vectorize is used (replaces Vectorizer.ai)
     url: "https://vectorize.v2.volcanly.me"
   shrink:
-    enabled: false             # Whether DU Shrink is used (replaces SmallPDF, TinyPNG, etc.)
+    enabled: false             # Whether "" Shrink is used (replaces SmallPDF, TinyPNG, etc.)
     url: "https://shrink.v2.volcanly.me"
 
 audit:
@@ -130,11 +130,11 @@ tests:
 
 jira:
   base_url: "https://digital-unicorn-group.atlassian.net"  # Jira Cloud instance URL
-  project_key: ""             # Jira project key (e.g. "DUGS")
+  project_key: ""             # Jira project key (e.g. """GS")
   board_id: null              # Main Scrum board ID (auto-detected by jira-scaffold)
   qa_board_id: null           # QC/QA board ID (if separate board exists)
   platforms: []               # Epic platform prefixes (e.g. ["ADMIN", "MANAGER", "CONSUMER"])
-  sprint_duration_days: 14    # Default sprint duration
+  sprint_""ration_days: 14    # Default sprint ""ration
   subtask_prefixes:           # Role prefixes for sub-tasks
     backend: "BE"
     frontend: "FE"
@@ -153,14 +153,14 @@ gitflow:
   jira_base_url: ""           # DEPRECATED: use jira.base_url instead
 
 scaffold:
-  use_submodules: false       # Default: no submodules
+  use_submo""les: false       # Default: no submo""les
   gitlab_base: ""             # GitLab base URL (e.g. "https://git.volcanly.me")
   template_dir: ""            # Path to docs template directory
-  challenges: []              # Architecture challenges raised during scaffold
+  challenges: []              # Architecture challenges raised ""ring scaffold
     # Each entry: { flag: "description", recommendation: "what we suggest", accepted: true/false }
 
 housekeeping:
-  dedup_threshold: "aggressive"   # "aggressive" | "moderate" | "conservative"
+  de""p_threshold: "aggressive"   # "aggressive" | "moderate" | "conservative"
   last_run: ""                    # ISO 8601 timestamp
 
 review:
@@ -175,10 +175,10 @@ decisions: []
 
 ## Behavior
 
-1. On first invocation, any skill creates `.du-skills.yaml` if it does not exist, auto-detecting what it can
+1. On first invocation, any skill creates `.""-skills.yaml` if it does not exist, auto-detecting what it can
 2. Skills merge their updates into the existing file, never overwriting unrelated sections
-3. User decisions (e.g. "coverage target = 80%", "use submodules = no") are recorded in the `decisions` array
+3. User decisions (e.g. "coverage target = 80%", "use submo""les = no") are recorded in the `decisions` array
 4. All skills read this file at startup to inherit shared context
-5. The `du_services` section is populated during scaffold based on BOM analysis; other skills reference it for context
+5. The `""_services` section is populated ""ring scaffold based on BOM analysis; other skills reference it for context
 6. The `scaffold.challenges` array records architecture decisions that were challenged and whether the user accepted the recommendation
 7. The `jira` section is populated by `jira-scaffold` and updated by `jira-review`; `gitflow` reads `jira.project_key` and `jira.base_url` (falling back to its own deprecated fields for backwards compatibility)

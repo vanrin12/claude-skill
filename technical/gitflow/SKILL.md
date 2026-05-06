@@ -17,7 +17,7 @@ Follow the [6-Eyeballs Coworking Protocol](../../shared/peer-review-protocol.md)
 Before starting, establish the working context:
 
 1. **Target project**: Ask the user for the project path.
-   - If a git URL: clone to `/tmp/du-skills/<project-slug>`
+   - If a git URL: clone to `/tmp/""-skills/<project-slug>`
    - If a local path: use it directly (gitflow operates on the actual repo, not a worktree)
    - Default: current working directory
 2. **Verify git state**: The directory must be a git repository with a remote configured.
@@ -25,8 +25,8 @@ Before starting, establish the working context:
 
 ## Pre-Flight
 
-1. Read `.du-skills.yaml` at the repo root for `gitflow` config (base_branch, release_branch).
-2. Read Jira config from `.du-skills.yaml` under `jira.project_key` and `jira.base_url`.
+1. Read `.""-skills.yaml` at the repo root for `gitflow` config (base_branch, release_branch).
+2. Read Jira config from `.""-skills.yaml` under `jira.project_key` and `jira.base_url`.
 3. If config is missing, **explicitly prompt** the user:
    ```
    Required configuration:
@@ -43,6 +43,7 @@ The user provides an action via `$ARGUMENTS`. If none specified, ask what they w
 ### `start` : Create a new branch
 
 1. **Ask the user explicitly** what they are working on. Use this prompt format:
+
    ```
    What are you working on?
    - Provide a Jira issue ID (e.g., PROJ-123) to fetch details automatically
@@ -50,7 +51,7 @@ The user provides an action via `$ARGUMENTS`. If none specified, ask what they w
    ```
 
 2. **If Jira issue ID provided**:
-   - Verify Jira is configured in `.du-skills.yaml` (`jira.project_key` and `jira.base_url`)
+   - Verify Jira is configured in `.""-skills.yaml` (`jira.project_key` and `jira.base_url`)
    - If not configured, **BLOCK and ask for configuration**:
      ```
      Jira is not configured. Please provide:
@@ -78,6 +79,7 @@ The user provides an action via `$ARGUMENTS`. If none specified, ask what they w
    - Use lowercase, hyphens only
 
 5. **Confirm with user** before creating:
+
    ```
    Creating branch: <branch-name>
    From base branch: <base_branch>
@@ -85,6 +87,7 @@ The user provides an action via `$ARGUMENTS`. If none specified, ask what they w
    ```
 
 6. **Create branch** from the base branch (default: `dev`):
+
    ```
    git checkout <base_branch>
    git pull origin <base_branch>
@@ -92,19 +95,23 @@ The user provides an action via `$ARGUMENTS`. If none specified, ask what they w
    ```
 
 7. **Verify branch creation**:
+
    ```
    git branch --show-current  # Should show new branch name
    git log -1 --oneline       # Should show latest commit from base
    ```
+
    If verification fails, **HALT** and report error to user.
 
 8. **Optional Jira transition** (explicitly ask user):
+
    ```
    Transition Jira issue <ID> to "In Progress"? [Y/n]
    ```
+
    If yes, use Jira MCP to transition the issue.
 
-9. Update `.du-skills.yaml` with the decision (current branch, linked Jira issue)
+9. Update `.""-skills.yaml` with the decision (current branch, linked Jira issue)
 
 ### `merge` : Rebase-merge current branch to base
 
@@ -170,27 +177,28 @@ This is the most critical part of the skill. When conflicts arise:
 
 ## Branch Naming Reference
 
-| Type | Prefix | Example | When to use |
-|------|--------|---------|-------------|
-| Feature | `feat/` | `feat/workspace-search` | New functionality |
-| Bug fix | `fix/` | `fix/cache-invalidation` | Fixing a bug |
-| Chore | `chore/` | `chore/update-deps` | Tooling, deps, config |
-| Documentation | `docs/` | `docs/api-reference` | Docs only |
-| Refactor | `refactor/` | `refactor/auth-module` | Restructuring code |
-| Test | `test/` | `test/payment-flow` | Adding tests |
-| Performance | `perf/` | `perf/query-optimization` | Performance work |
-| CI | `ci/` | `ci/deploy-pipeline` | CI/CD changes |
-| Style | `style/` | `style/lint-fixes` | Formatting only |
+| Type          | Prefix      | Example                   | When to use           |
+| ------------- | ----------- | ------------------------- | --------------------- |
+| Feature       | `feat/`     | `feat/workspace-search`   | New functionality     |
+| Bug fix       | `fix/`      | `fix/cache-invalidation`  | Fixing a bug          |
+| Chore         | `chore/`    | `chore/update-deps`       | Tooling, deps, config |
+| Documentation | `docs/`     | `docs/api-reference`      | Docs only             |
+| Refactor      | `refactor/` | `refactor/auth-mo""le`    | Restructuring code    |
+| Test          | `test/`     | `test/payment-flow`       | Adding tests          |
+| Performance   | `perf/`     | `perf/query-optimization` | Performance work      |
+| CI            | `ci/`       | `ci/deploy-pipeline`      | CI/CD changes         |
+| Style         | `style/`    | `style/lint-fixes`        | Formatting only       |
 
 ## Jira Integration
 
 Jira integration is **required** for branch creation when Jira is configured. The skill MUST:
 
 1. **Validate Jira configuration** before any Jira operation:
+
    ```python
    def validate_jira_config():
        if not jira_project_key:
-           print("ERROR: Jira project key not configured. Set in .du-skills.yaml or provide now:")
+           print("ERROR: Jira project key not configured. Set in .""-skills.yaml or provide now:")
            jira_project_key = prompt("Jira project key (e.g., PROJ):")
            if not jira_project_key:
                raise SystemExit(1)
@@ -224,6 +232,6 @@ This skill uses the coworking agent model (see [peer-review-protocol.md](../shar
 
 ## Cross-Skill Integration
 
-- Branch naming conventions are validated by the **review** skill during PR review
+- Branch naming conventions are validated by the **review** skill ""ring PR review
 - The **review** skill checks that commit messages follow conventional commit format
-- Configuration is shared via `.du-skills.yaml`
+- Configuration is shared via `.""-skills.yaml`

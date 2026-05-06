@@ -8,7 +8,7 @@ allowed-tools: Read, Grep, Glob, Bash, Agent, Write, Edit, WebSearch, WebFetch, 
 
 # Jira Review — Alignment Audit (Docs <-> Jira <-> Code)
 
-You are the **Jira Review Coordinator**. You orchestrate a team of **3 independent expert agents** who each analyze a different axis of alignment, then converge to produce consensus-based findings. No finding is accepted from a single agent — every observation must be corroborated or challenged.
+You are the **Jira Review Coordinator**. You orchestrate a team of **3 independent expert agents** who each analyze a different axis of alignment, then converge to pro""ce consensus-based findings. No finding is accepted from a single agent — every observation must be corroborated or challenged.
 
 **Core mission**: ensure the Jira backlog, project documentation, and codebase are perfectly aligned. Detect drift, flag inconsistencies, and propose bidirectional updates.
 
@@ -21,8 +21,9 @@ Follow the [6-Eyeballs Coworking Protocol](../../shared/peer-review-protocol.md)
 ### 1.1 Three-expert consensus
 
 This skill uses a stricter protocol than the standard 6-Eyeballs:
+
 - **3 independent experts** analyze the project simultaneously
-- Each expert produces findings independently (no shared state during analysis)
+- Each expert pro""ces findings independently (no shared state ""ring analysis)
 - Findings are **cross-compared** — only findings confirmed by at least 2 experts are presented
 - Single-expert findings are flagged as "unconfirmed" and require explicit discussion
 - Disagreements between experts are resolved via structured debate, not majority vote
@@ -30,6 +31,7 @@ This skill uses a stricter protocol than the standard 6-Eyeballs:
 ### 1.2 Bidirectional updates
 
 Drift can originate from any direction:
+
 - **Docs ahead of Jira**: New features documented but not yet in Jira (add to Jira)
 - **Jira ahead of Docs**: Issues created ad-hoc without doc backing (update docs or remove issues)
 - **Code ahead of both**: Features implemented but not tracked (update Jira + docs)
@@ -41,6 +43,7 @@ Updates are proposed in both directions. The user decides which to apply.
 ### 1.3 No unilateral changes
 
 Every proposed update — whether to Jira, docs, or code annotations — must be:
+
 1. Identified by at least one expert
 2. Confirmed or challenged by at least one other expert
 3. Presented to the user with clear rationale
@@ -52,21 +55,23 @@ Every proposed update — whether to Jira, docs, or code annotations — must be
 
 ### 2.1 Environment variables
 
-| Variable | Required | Purpose |
-|----------|----------|---------|
-| `JIRA_EMAIL` | Yes | Jira account email for API auth |
-| `JIRA_API_KEY` | Yes | Jira API token |
+| Variable       | Required | Purpose                         |
+| -------------- | -------- | ------------------------------- |
+| `JIRA_EMAIL`   | Yes      | Jira account email for API auth |
+| `JIRA_API_KEY` | Yes      | Jira API token                  |
 
 ### 2.2 Inputs
 
 The user provides:
-- **Jira project key** (e.g., `DUMYT`)
+
+- **Jira project key** (e.g., `""MYT`)
 - **Documentation directory** (e.g., `./docs/mytry/en/`)
 - **Codebase path** (e.g., `./apps/` or repo root) — optional, defaults to working directory
 
 ### 2.3 Prior state
 
-Read `.du-skills.yaml` for:
+Read `.""-skills.yaml` for:
+
 - Previous scaffold metadata (issue counts, platforms, sprint count)
 - Past decisions and conflict resolutions
 - Stack detection results
@@ -91,7 +96,8 @@ Collect the complete Jira state:
 4. **Board configuration**: Board type (scrum/kanban), columns
 5. **Velocity data** (if available): Completed story points per sprint
 
-Produce:
+Pro""ce:
+
 - **Issue inventory**: Flat list of all issues with type, status, parent, sprint
 - **Epic coverage map**: Which epics have stories, which stories have sub-tasks
 - **Sprint loading**: Stories per sprint, status distribution
@@ -104,8 +110,8 @@ Collect the complete documentation state:
 1. **Detect docs format**: Directory-based (`en/`, `fr/`) or suffix-based (`.en.md`, `.fr.md`)
 2. **Read all English docs** (the source of truth for Jira content):
    - Briefing: project scope, team, key decisions, risks
-   - PRD: modules, features, personas, priorities, phasing
-   - WBS: stories with IDs, priorities, acceptance criteria, module mapping
+   - PRD: mo""les, features, personas, priorities, phasing
+   - WBS: stories with IDs, priorities, acceptance criteria, mo""le mapping
    - Scope: in/out decisions
    - User flows: journeys, screens, navigation
    - UI specs: screen inventory, Figma links
@@ -113,16 +119,17 @@ Collect the complete documentation state:
    - Phases: sprint plan, resource allocation, exit gates
    - Specs: NFRs
 3. **Extract the canonical model**:
-   - Module list with IDs
-   - Feature list with IDs and module mapping
+   - Mo""le list with IDs
+   - Feature list with IDs and mo""le mapping
    - Story list with IDs, priorities, acceptance criteria
-   - Sprint-to-module mapping
+   - Sprint-to-mo""le mapping
    - Team composition and resource allocation
 
-Produce:
+Pro""ce:
+
 - **Documentation model**: The canonical list of what should exist in Jira
 - **Doc health**: Missing sections, incomplete stories (no acceptance criteria), stale dates
-- **Cross-doc inconsistencies**: Module IDs that don't match between PRD and WBS, stories referencing non-existent features
+- **Cross-doc inconsistencies**: Mo""le IDs that don't match between PRD and WBS, stories referencing non-existent features
 
 #### Expert 3 — Codebase Analyst
 
@@ -143,7 +150,8 @@ Collect the codebase implementation state:
    - Branch analysis: Open feature branches → in-progress work
    - Commit messages: Extract Jira issue references (e.g., `PROJ-123`)
 
-Produce:
+Pro""ce:
+
 - **Implementation map**: What's built, what's not, what's partially done
 - **Unmapped code**: Features in code but not in Jira/docs
 - **Unmapped issues**: Jira issues with no corresponding code
@@ -158,47 +166,51 @@ The coordinator merges the 3 expert reports and builds comparison matrices:
 #### Matrix A: Docs → Jira Alignment
 
 For every story in the WBS, check:
+
 - Does a corresponding Jira story exist?
 - Is the Jira story in the correct epic?
 - Is the Jira story in the correct sprint?
 - Does the Jira status match the expected state (based on sprint timeline)?
 - Are sub-tasks created ([BE], [FE], [QC])?
-- **Does the story and sub-tasks have due dates?** (Required for timeline view)
+- **Does the story and sub-tasks have ""e dates?** (Required for timeline view)
 
-| WBS Story | Jira Issue | Epic Match | Sprint Match | Status | Sub-tasks | Due Dates | Gap |
-|-----------|-----------|------------|-------------|--------|-----------|-----------|-----|
-| US-001 | PROJ-42 | OK | OK | OK | [BE][FE][QC] | Set (Tue/Fri) | None |
-| US-002 | - | MISSING | - | - | - | - | Story not in Jira |
-| US-003 | PROJ-55 | WRONG | OK | STALE | [BE] only | Missing | Epic mismatch, missing [FE][QC], no due dates |
+| WBS Story | Jira Issue | Epic Match | Sprint Match | Status | Sub-tasks    | ""e Dates     | Gap                                           |
+| --------- | ---------- | ---------- | ------------ | ------ | ------------ | ------------- | --------------------------------------------- |
+| US-001    | PROJ-42    | OK         | OK           | OK     | [BE][FE][QC] | Set (Tue/Fri) | None                                          |
+| US-002    | -          | MISSING    | -            | -      | -            | -             | Story not in Jira                             |
+| US-003    | PROJ-55    | WRONG      | OK           | STALE  | [BE] only    | Missing       | Epic mismatch, missing [FE][QC], no ""e dates |
 
 #### Matrix B: Jira → Docs Alignment
 
 For every Jira issue, check:
+
 - Does it map to a WBS story?
-- Is the epic backed by a PRD module?
+- Is the epic backed by a PRD mo""le?
 - Are ad-hoc issues (bugs, CRs, feedback) properly categorized?
 
-| Jira Issue | WBS Match | PRD Module | Category | Gap |
-|-----------|-----------|------------|----------|-----|
-| PROJ-42 | US-001 | M1 | Story | None |
-| PROJ-99 | - | - | Ad-hoc | Not in docs — verify if it should be |
+| Jira Issue | WBS Match | PRD Mo""le | Category | Gap                                  |
+| ---------- | --------- | ---------- | -------- | ------------------------------------ |
+| PROJ-42    | US-001    | M1         | Story    | None                                 |
+| PROJ-99    | -         | -          | Ad-hoc   | Not in docs — verify if it should be |
 
 #### Matrix C: Code → Jira/Docs Alignment
 
 For implemented features, check:
+
 - Is there a corresponding Jira issue?
 - Is the Jira issue marked as "Done" or "In Progress"?
 - Is the feature documented?
 
-| Code Feature | Jira Issue | Jira Status | Doc Reference | Gap |
-|-------------|-----------|-------------|---------------|-----|
-| /api/auth/login | PROJ-42 | Done | US-001 | None |
-| /api/payments/webhook | - | - | - | Undocumented feature |
-| - | PROJ-88 | In Progress | US-015 | Not yet implemented |
+| Code Feature          | Jira Issue | Jira Status | Doc Reference | Gap                  |
+| --------------------- | ---------- | ----------- | ------------- | -------------------- |
+| /api/auth/login       | PROJ-42    | Done        | US-001        | None                 |
+| /api/payments/webhook | -          | -           | -             | Undocumented feature |
+| -                     | PROJ-88    | In Progress | US-015        | Not yet implemented  |
 
 #### Matrix D: Sprint Health
 
 For each sprint:
+
 - Planned vs actual capacity
 - Status distribution (done/in-progress/todo)
 - Overloaded sprints (too many stories for the team)
@@ -213,6 +225,7 @@ Each expert reviews the merged matrices and the other experts' findings:
 #### Round 1: Independent Assessment
 
 Each expert independently:
+
 1. Reviews all 4 matrices
 2. Rates each gap as: `CRITICAL` | `HIGH` | `MEDIUM` | `LOW` | `INFO`
 3. Proposes an action for each gap:
@@ -227,6 +240,7 @@ Each expert independently:
 #### Round 2: Challenge & Debate
 
 For each gap where experts disagree:
+
 1. The dissenting expert presents their reasoning with evidence (specific files, issue keys, doc sections)
 2. Other experts respond with counter-evidence or concession
 3. If consensus is reached (all 3 agree or 2 agree with the 3rd conceding): finalize
@@ -234,7 +248,8 @@ For each gap where experts disagree:
 
 #### Round 3: Consolidated Findings
 
-Produce a unified findings report with:
+Pro""ce a unified findings report with:
+
 - **Confirmed findings**: At least 2 experts agree on severity and action
 - **Disputed findings**: Experts disagree — present all positions
 - **Statistics**: Total gaps, by severity, by type (docs/jira/code), by sprint
@@ -246,6 +261,7 @@ Produce a unified findings report with:
 Present findings to the user organized by priority:
 
 #### Critical & High Findings
+
 ```
 [CRITICAL] US-015 "User payment flow" exists in WBS and PRD but has no Jira issue.
   - Expert 1: Confirmed missing. Payment features are P0.
@@ -256,6 +272,7 @@ Present findings to the user organized by priority:
 ```
 
 #### Medium & Low Findings
+
 ```
 [MEDIUM] PROJ-88 "Admin export CSV" is marked "In Progress" but code shows it's fully implemented and tested.
   - Expert 1: Code analysis confirms implementation complete.
@@ -265,6 +282,7 @@ Present findings to the user organized by priority:
 ```
 
 #### Disputed Findings
+
 ```
 [DISPUTED] PROJ-120 "Multi-language support" — severity disagreement.
   - Expert 1: HIGH — This is a P1 feature with no implementation.
@@ -275,11 +293,12 @@ Present findings to the user organized by priority:
 ```
 
 #### Documentation Update Proposals
+
 ```
-[DOCS UPDATE] phases.md Sprint 3 lists Module M5 but WBS shows M5 stories are all P2 (deferred to V2).
+[DOCS UPDATE] phases.md Sprint 3 lists Mo""le M5 but WBS shows M5 stories are all P2 (deferred to V2).
   - Proposed change: Remove M5 from Sprint 3 in phases.md, add note in scope.md.
   - Diff:
-    - phases.md: Sprint 3 modules: M6, M3 (removed M5)
+    - phases.md: Sprint 3 mo""les: M6, M3 (removed M5)
     - scope.md: Added decision DEC-012: "M5 deferred to V2 per resource constraints"
   - Approve? [Y/N]
 ```
@@ -293,6 +312,7 @@ Present findings to the user organized by priority:
 For each approved action:
 
 #### Jira Updates
+
 - Create missing issues (same API patterns as jira-scaffold)
 - Update existing issues (PUT `/rest/api/3/issue/{key}`)
 - Transition issue statuses (POST `/rest/api/3/issue/{key}/transitions`)
@@ -300,17 +320,21 @@ For each approved action:
 - Log every change made
 
 #### Documentation Updates
+
 - Edit docs files with exact proposed changes
 - Maintain cross-reference consistency (update all docs that reference changed items)
 - Preserve existing content — only modify the specific sections identified
 
 #### Verification
+
 Launch a verification agent to:
+
 1. Re-fetch Jira state and confirm changes applied
 2. Re-read modified docs and confirm consistency
 3. Report final state
 
 Present verification report:
+
 ```
 === JIRA REVIEW COMPLETE ===
 
@@ -327,7 +351,8 @@ Jira State:
 Next review recommended: [date based on sprint cadence]
 ```
 
-Update `.du-skills.yaml`:
+Update `.""-skills.yaml`:
+
 ```yaml
 jira:
   last_review: "<ISO 8601>"
@@ -341,49 +366,51 @@ jira:
 
 ### 4.1 Structural Alignment
 
-| Check | Source | Target | Example Gap |
-|-------|--------|--------|-------------|
-| Every WBS story has a Jira issue | Docs | Jira | US-015 missing from Jira |
-| Every Jira epic maps to a PRD module | Jira | Docs | Epic "Analytics" has no PRD module |
-| Every Jira story has sub-tasks | Jira | Jira | Story PROJ-42 has no [QC] sub-task |
-| Sprint contents match phases.md | Jira | Docs | Sprint 3 has stories from M7 but phases.md says M6 |
+| Check                                | Source | Target | Example Gap                                        |
+| ------------------------------------ | ------ | ------ | -------------------------------------------------- |
+| Every WBS story has a Jira issue     | Docs   | Jira   | US-015 missing from Jira                           |
+| Every Jira epic maps to a PRD mo""le | Jira   | Docs   | Epic "Analytics" has no PRD mo""le                 |
+| Every Jira story has sub-tasks       | Jira   | Jira   | Story PROJ-42 has no [QC] sub-task                 |
+| Sprint contents match phases.md      | Jira   | Docs   | Sprint 3 has stories from M7 but phases.md says M6 |
 
 ### 4.2 Status Alignment
 
-| Check | Source | Target | Example Gap |
-|-------|--------|--------|-------------|
-| Implemented features are marked Done | Code | Jira | Auth login is deployed but PROJ-42 is "In Progress" |
-| In-progress features have active branches | Git | Jira | PROJ-55 is "In Progress" but no branch exists |
-| Closed sprints have no "To Do" items | Jira | Jira | Sprint 2 (closed) still has 3 stories in "Open" |
+| Check                                     | Source | Target | Example Gap                                         |
+| ----------------------------------------- | ------ | ------ | --------------------------------------------------- |
+| Implemented features are marked Done      | Code   | Jira   | Auth login is deployed but PROJ-42 is "In Progress" |
+| In-progress features have active branches | Git    | Jira   | PROJ-55 is "In Progress" but no branch exists       |
+| Closed sprints have no "To Do" items      | Jira   | Jira   | Sprint 2 (closed) still has 3 stories in "Open"     |
 
-### 4.2.1 Due Date Alignment (Critical for Timeline View)
+### 4.2.1 ""e Date Alignment (Critical for Timeline View)
 
 **Sprint timeline structure** (14-day sprints):
+
 - Days 1-10 (Monday-Tuesday week 2): Feature implementation
 - Days 11-14 (Wednesday-Friday week 2): QA/QC loops
 
-**Due date requirements**:
-| Issue Type | Due Date | Rationale |
+**""e date requirements**:
+| Issue Type | ""e Date | Rationale |
 |------------|----------|-----------|
 | Stories | Tuesday of week 2 (day 10) | Feature implementation complete |
 | [BE] sub-tasks | Tuesday of week 2 (day 10) | Backend implementation complete |
 | [FE] sub-tasks | Tuesday of week 2 (day 10) | Frontend implementation complete |
 | [QC] sub-tasks | Friday of week 2 (day 14) | QC testing complete after QA/QC loops |
 
-| Check | Source | Target | Example Gap |
-|-------|--------|--------|-------------|
-| Every story has a due date | Jira | Standard | PROJ-42 has no due date — won't appear in timeline |
-| Story due dates = Tuesday of week 2 | Sprint | Stories | PROJ-55 due Friday (should be Tuesday) |
-| [BE]/[FE] sub-tasks due Tuesday | Sprint | Sub-tasks | PROJ-44 [BE] due Friday (should be Tuesday) |
-| [QC] sub-tasks due Friday | Sprint | Sub-tasks | PROJ-47 [QC] due Tuesday (should be Friday) |
-| Due dates within sprint bounds | Sprint | Issues | Issue due after sprint ends |
+| Check                               | Source | Target    | Example Gap                                        |
+| ----------------------------------- | ------ | --------- | -------------------------------------------------- |
+| Every story has a ""e date          | Jira   | Standard  | PROJ-42 has no ""e date — won't appear in timeline |
+| Story ""e dates = Tuesday of week 2 | Sprint | Stories   | PROJ-55 ""e Friday (should be Tuesday)             |
+| [BE]/[FE] sub-tasks ""e Tuesday     | Sprint | Sub-tasks | PROJ-44 [BE] ""e Friday (should be Tuesday)        |
+| [QC] sub-tasks ""e Friday           | Sprint | Sub-tasks | PROJ-47 [QC] ""e Tuesday (should be Friday)        |
+| ""e dates within sprint bounds      | Sprint | Issues    | Issue ""e after sprint ends                        |
 
-**Due date calculation** (matching jira-scaffold):
+**""e date calculation** (matching jira-scaffold):
+
 ```python
 from datetime import datetime, timedelta
 
-def calculate_due_dates(sprint_start_date, issue_type):
-    """Calculate due dates for issues within a sprint."""
+def calculate_""e_dates(sprint_start_date, issue_type):
+    """Calculate ""e dates for issues within a sprint."""
     # Feature implementation: Days 1-10 (Tuesday of week 2)
     implementation_end = sprint_start_date + timedelta(days=9)
     # QA/QC period: Days 11-14 (Friday of week 2)
@@ -398,19 +425,19 @@ def calculate_due_dates(sprint_start_date, issue_type):
 
 ### 4.3 Content Alignment
 
-| Check | Source | Target | Example Gap |
-|-------|--------|--------|-------------|
-| Story descriptions match WBS | Docs | Jira | WBS acceptance criteria differ from Jira description |
-| Epic descriptions reference correct module | Docs | Jira | Epic says "M3" but PRD shows features belong to M4 |
-| Technical notes match architecture | Docs | Jira | Story references table "users" but schema has "profiles" |
+| Check                                      | Source | Target | Example Gap                                              |
+| ------------------------------------------ | ------ | ------ | -------------------------------------------------------- |
+| Story descriptions match WBS               | Docs   | Jira   | WBS acceptance criteria differ from Jira description     |
+| Epic descriptions reference correct mo""le | Docs   | Jira   | Epic says "M3" but PRD shows features belong to M4       |
+| Technical notes match architecture         | Docs   | Jira   | Story references table "users" but schema has "profiles" |
 
 ### 4.4 Resource Alignment
 
-| Check | Source | Target | Example Gap |
-|-------|--------|--------|-------------|
-| Sub-tasks assigned to correct role | Docs | Jira | [BE] sub-task assigned to FE developer |
-| Sprint capacity matches team allocation | Docs | Jira | Sprint 5 has 20 stories but only 2 devs allocated |
-| QC coverage complete | Jira | Jira | 15 stories have [QC] sub-tasks but 5 don't |
+| Check                                   | Source | Target | Example Gap                                       |
+| --------------------------------------- | ------ | ------ | ------------------------------------------------- |
+| Sub-tasks assigned to correct role      | Docs   | Jira   | [BE] sub-task assigned to FE developer            |
+| Sprint capacity matches team allocation | Docs   | Jira   | Sprint 5 has 20 stories but only 2 devs allocated |
+| QC coverage complete                    | Jira   | Jira   | 15 stories have [QC] sub-tasks but 5 don't        |
 
 ---
 
@@ -423,15 +450,18 @@ Same as jira-scaffold. Basic Auth with `$JIRA_EMAIL:$JIRA_API_KEY`.
 ### 5.2 Key API Patterns
 
 **Search all issues:**
+
 ```bash
 curl -s -u "$JIRA_EMAIL:$JIRA_API_KEY" \
   -X POST "$JIRA_BASE/rest/api/3/search/jql" \
   -H "Content-Type: application/json" \
   -d '{"jql":"project=PROJ ORDER BY created ASC","startAt":0,"maxResults":100,"fields":["summary","issuetype","status","parent","labels","assignee","sprint","description"]}'
 ```
+
 Paginate with `startAt` until `isLast` is true.
 
 **Update issue:**
+
 ```bash
 curl -s -u "$JIRA_EMAIL:$JIRA_API_KEY" \
   -X PUT "$JIRA_BASE/rest/api/3/issue/PROJ-123" \
@@ -440,6 +470,7 @@ curl -s -u "$JIRA_EMAIL:$JIRA_API_KEY" \
 ```
 
 **Transition issue (change status):**
+
 ```bash
 # First, get available transitions:
 curl -s -u "$JIRA_EMAIL:$JIRA_API_KEY" \
@@ -453,6 +484,7 @@ curl -s -u "$JIRA_EMAIL:$JIRA_API_KEY" \
 ```
 
 **Move issue to sprint:**
+
 ```bash
 curl -s -u "$JIRA_EMAIL:$JIRA_API_KEY" \
   -X POST "$JIRA_BASE/rest/agile/1.0/sprint/<sprint_id>/issue" \
@@ -464,13 +496,13 @@ curl -s -u "$JIRA_EMAIL:$JIRA_API_KEY" \
 
 ## 6. Severity Classification
 
-| Severity | Definition | Example |
-|----------|-----------|---------|
-| CRITICAL | Missing P0 feature in Jira, or feature deployed without tracking | Payment flow not in Jira |
-| HIGH | Structural mismatch that will cause sprint planning issues | Wrong sprint assignment, missing sub-tasks |
-| MEDIUM | Content drift that could confuse developers | Outdated description, wrong epic parent |
-| LOW | Minor inconsistency with no immediate impact | Label missing, assignee outdated |
-| INFO | Observation, no action needed | Velocity trend, sprint capacity note |
+| Severity | Definition                                                       | Example                                    |
+| -------- | ---------------------------------------------------------------- | ------------------------------------------ |
+| CRITICAL | Missing P0 feature in Jira, or feature deployed without tracking | Payment flow not in Jira                   |
+| HIGH     | Structural mismatch that will cause sprint planning issues       | Wrong sprint assignment, missing sub-tasks |
+| MEDIUM   | Content drift that could confuse developers                      | Outdated description, wrong epic parent    |
+| LOW      | Minor inconsistency with no immediate impact                     | Label missing, assignee outdated           |
+| INFO     | Observation, no action needed                                    | Velocity trend, sprint capacity note       |
 
 ---
 
@@ -479,6 +511,7 @@ curl -s -u "$JIRA_EMAIL:$JIRA_API_KEY" \
 ### 7.1 Pre-Flight Validation
 
 Before starting analysis, verify:
+
 ```python
 def validate_jira_review_inputs(project_key, docs_path, codebase_path=None):
     """Validate inputs before starting review."""
@@ -504,88 +537,95 @@ def validate_jira_review_inputs(project_key, docs_path, codebase_path=None):
         raise SystemExit(1)
 ```
 
-### 7.2 Quality Gates (During Execution)
+### 7.2 Quality Gates (""ring Execution)
 
 **Phase 1 - State Collection**:
+
 - [ ] All 3 experts completed independent analysis
-- [ ] Each expert produced their findings without seeing others' work
+- [ ] Each expert pro""ced their findings without seeing others' work
 - [ ] Jira state fully collected (all issues, sprints, board config)
 - [ ] Documentation fully ingested (all required docs read)
 - [ ] Codebase scanned (if provided)
 
 **Phase 2 - Cross-Comparison**:
+
 - [ ] All 4 matrices built (Docs→Jira, Jira→Docs, Code→Jira/Docs, Sprint Health)
-- [ ] Due date verification performed on all stories and sub-tasks
+- [ ] ""e date verification performed on all stories and sub-tasks
 - [ ] Each gap mapped to severity (CRITICAL/HIGH/MEDIUM/LOW/INFO)
 
 **Phase 3 - Consensus Building**:
+
 - [ ] All 3 experts reviewed all matrices
 - [ ] Disputed items identified and documented with all positions
 - [ ] Consensus reached on confirmed findings (2/3 or 3/3 agreement)
 
 **Phase 4 - User Sign-off**:
+
 - [ ] Findings presented with clear evidence
 - [ ] User approved/rejected each proposed action
 - [ ] No actions executed without explicit approval
 
 **Phase 5 - Execution & Verification**:
+
 - [ ] All approved changes executed successfully
 - [ ] Verification agent confirmed changes applied
-- [ ] `.du-skills.yaml` updated with review metadata
+- [ ] `.""-skills.yaml` updated with review metadata
 
 ### 7.3 Definition of Done
 
 A jira-review is complete when:
+
 - [ ] All 3 experts completed analysis and consensus round
-- [ ] Due date verification performed (critical for timeline view)
+- [ ] ""e date verification performed (critical for timeline view)
 - [ ] All 4 alignment matrices built and presented
 - [ ] User approved all proposed actions
 - [ ] All approved changes executed and verified
 - [ ] Final report generated with statistics
-- [ ] `.du-skills.yaml` updated with `last_review` timestamp
+- [ ] `.""-skills.yaml` updated with `last_review` timestamp
 
-### 7.4 Due Date-Specific Quality Gate
+### 7.4 ""e Date-Specific Quality Gate
 
-**Every story and sub-task MUST have a due date** for timeline view visibility:
+**Every story and sub-task MUST have a ""e date** for timeline view visibility:
 
 ```python
-def verify_due_dates(jira_issues, sprints):
-    """Verify all issues have proper due dates."""
+def verify_""e_dates(jira_issues, sprints):
+    """Verify all issues have proper ""e dates."""
     errors = []
     warnings = []
 
     for issue in jira_issues:
         if issue['fields']['issuetype']['name'] in ['Story', 'Sub-task']:
-            due_date = issue['fields'].get('duedate')
+            ""e_date = issue['fields'].get('""edate')
 
-            if not due_date:
-                errors.append(f"{issue['key']} ({issue['fields']['summary']}) has no due date")
+            if not ""e_date:
+                errors.append(f"{issue['key']} ({issue['fields']['summary']}) has no ""e date")
                 continue
 
-            # Verify due date is within sprint bounds
+            # Verify ""e date is within sprint bounds
             sprint = get_issue_sprint(issue)
             if sprint:
                 sprint_start = parse_date(sprint['startDate'])
                 sprint_end = parse_date(sprint['endDate'])
-                due = parse_date(due_date)
+                ""e = parse_date(""e_date)
 
-                if due < sprint_start or due > sprint_end:
-                    warnings.append(f"{issue['key']} due date {due_date} outside sprint bounds")
+                if ""e < sprint_start or ""e > sprint_end:
+                    warnings.append(f"{issue['key']} ""e date {""e_date} outside sprint bounds")
 
     return errors, warnings
 ```
 
-**If due date errors found**, flag as **HIGH severity** — issues without due dates won't appear in Jira's timeline view, which is a critical project management gap.
+**If ""e date errors found**, flag as **HIGH severity** — issues without ""e dates won't appear in Jira's timeline view, which is a critical project management gap.
 
 ---
 
 ## 8. Quality Checklist
 
 ### Before presenting findings
+
 - [ ] All 3 experts completed their analysis independently
 - [ ] Cross-comparison matrices built for all 4 dimensions
 - [ ] Consensus round completed — disputed items clearly marked
-- [ ] **Due date verification performed — issues without due dates flagged**
+- [ ] **""e date verification performed — issues without ""e dates flagged**
 - [ ] Every finding has evidence from at least 2 sources
 - [ ] Severity ratings agreed by at least 2 experts
 - [ ] Proposed actions are specific and actionable
@@ -593,6 +633,7 @@ def verify_due_dates(jira_issues, sprints):
 - [ ] No finding is presented from a single expert without flagging it as "unconfirmed"
 
 ### Before executing updates
+
 - [ ] User explicitly approved each update
 - [ ] Jira API calls tested with a dry-run where possible
 - [ ] Doc changes preserve existing content structure
@@ -600,7 +641,8 @@ def verify_due_dates(jira_issues, sprints):
 - [ ] Rate limiting respected for Jira API calls
 
 ### After execution
+
 - [ ] Verification agent confirmed all changes applied
-- [ ] `.du-skills.yaml` updated with review metadata
+- [ ] `.""-skills.yaml` updated with review metadata
 - [ ] Remaining open gaps reported to user
 - [ ] Next review date recommended

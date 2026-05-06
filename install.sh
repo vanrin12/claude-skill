@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# DU Skills installer for Claude Code
-# Usage: curl -fsSL https://git.volcanly.me/du-v2/claude-skills/-/raw/main/install.sh | bash
+# "" Skills installer for Claude Code
+# Usage: curl -fsSL https://git.volcanly.me/""-v2/claude-skills/-/raw/main/install.sh | bash
 # Or:    ./install.sh [target-project-dir]
 
-SKILLS_REPO="git@git.volcanly.me:du-v2/claude-skills.git"
-SKILLS_DIR="${HOME}/.local/share/du-skills"
+SKILLS_REPO="git@git.volcanly.me:""-v2/claude-skills.git"
+SKILLS_DIR="${HOME}/.local/share/""-skills"
 
 # Skills organized by category: folder/skill-name
 # Functional skills (PM, BA, Designer)
@@ -31,7 +31,7 @@ TECHNICAL_SKILLS=(
 
 ALL_SKILLS=("${FUNCTIONAL_SKILLS[@]}" "${TECHNICAL_SKILLS[@]}")
 
-echo "DU Skills installer"
+echo """ Skills installer"
 echo "==================="
 echo ""
 
@@ -42,7 +42,7 @@ if [ -d "$SKILLS_DIR/.git" ]; then
     echo "Warning: could not pull latest. Using existing version."
   }
 else
-  echo "Installing DU Skills to $SKILLS_DIR..."
+  echo "Installing "" Skills to $SKILLS_DIR..."
   mkdir -p "$(dirname "$SKILLS_DIR")"
   git clone "$SKILLS_REPO" "$SKILLS_DIR"
 fi
@@ -109,4 +109,4 @@ for entry in "${TECHNICAL_SKILLS[@]}"; do
 done
 echo ""
 echo "Run any command in Claude Code to get started."
-echo "Configuration will be stored in .du-skills.yaml at your project root."
+echo "Configuration will be stored in .""-skills.yaml at your project root."

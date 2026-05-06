@@ -16,13 +16,13 @@ You are the **Functional Scaffold Orchestrator**. You coordinate a complete func
 
 ## 1. Foundational Principles
 
-### 1.1 Single analysis, dual output
+### 1.1 Single analysis, ""al output
 
 Documentation analysis is expensive (3 expert agents, cross-validation, completeness checks). This orchestrator runs it **once** and passes the validated model to both sub-skills. Neither sub-skill re-analyzes the docs when invoked from here.
 
 ### 1.2 User sign-off at every gate
 
-The orchestrator owns the user interaction. Sub-skills receive pre-approved context and execute without redundant confirmations — but the orchestrator confirms at each major boundary.
+The orchestrator owns the user interaction. Sub-skills receive pre-approved context and execute without re""ndant confirmations — but the orchestrator confirms at each major boundary.
 
 ### 1.3 Sequential execution
 
@@ -38,10 +38,10 @@ Follow the [6-Eyeballs Coworking Protocol](shared/peer-review-protocol.md) for a
 
 ### 2.1 Environment variables
 
-| Variable | Required | Purpose |
-|----------|----------|---------|
-| `JIRA_EMAIL` | Yes | Jira account email for API auth |
-| `JIRA_API_KEY` | Yes | Jira API token |
+| Variable       | Required | Purpose                         |
+| -------------- | -------- | ------------------------------- |
+| `JIRA_EMAIL`   | Yes      | Jira account email for API auth |
+| `JIRA_API_KEY` | Yes      | Jira API token                  |
 
 ### 2.2 Inputs
 
@@ -49,13 +49,14 @@ Prompt the user for the following (accept whatever they provide, ask for what is
 
 1. **Documentation directory** (required): Path to project docs (e.g., `./docs/project/en/`)
    - If not provided, ask: "Where are the project docs?"
-   - If remote, clone from GitLab: `git clone git@git.volcanly.me:du-v2/docs/<slug>.git`
+   - If remote, clone from GitLab: `git clone git@git.volcanly.me:""-v2/docs/<slug>.git`
 
 2. **Jira project**: Either:
-   - An existing Jira project key (e.g., `DUCOH`), OR
+   - An existing Jira project key (e.g., `""COH`), OR
    - A project name and code to create a new Jira project
 
 3. **Team members**: Prompt for emails of the project team:
+
    ```
    Please provide the email addresses of the team members:
    - PM (Project Manager): <required>
@@ -76,7 +77,7 @@ Prompt the user for the following (accept whatever they provide, ask for what is
 ### Gate 0: Environment & Discovery
 
 1. Verify `JIRA_EMAIL` and `JIRA_API_KEY` env vars are set
-2. Read `.du-skills.yaml` for project context (if exists)
+2. Read `.""-skills.yaml` for project context (if exists)
 3. Resolve the docs directory and detect i18n format (suffix-based or directory-based)
 4. Locate English docs as the source of truth
 5. Verify the Jira project exists via API (or prepare to create it)
@@ -89,34 +90,38 @@ Prompt the user for the following (accept whatever they provide, ask for what is
 Launch **3 expert agents in parallel**:
 
 #### Agent A — Functional Expert
+
 - Read: briefing, PRD, WBS, scope, glossary
-- Extract: project name, modules (M1, M2...), features (F1.1...), stories (US-001...) with priorities and acceptance criteria, personas, scope decisions, constraints
-- Build cross-reference matrix: module -> features -> stories
+- Extract: project name, mo""les (M1, M2...), features (F1.1...), stories (US-001...) with priorities and acceptance criteria, personas, scope decisions, constraints
+- Build cross-reference matrix: mo""le -> features -> stories
 - Flag inconsistencies between documents
 
 #### Agent B — Technical Expert
+
 - Read: architecture, BOM, infrastructure, specs
 - Extract: tech stack, platform structure, database schema, Edge Functions, external services, NFRs, ADRs
-- Flag admin/consumer FE duplication
+- Flag admin/consumer FE ""plication
 - Determine platform prefixes for epics ([WEB], [MOBILE], [ADMIN])
 
 #### Agent C — Planning & Resources Expert
+
 - Read: phases, coverage, briefing (team section), about (stakeholders)
-- Extract: team composition, sprint schedule with dates, sprint-to-module mapping, resource allocation, exit gates, effort estimates
+- Extract: team composition, sprint sche""le with dates, sprint-to-mo""le mapping, resource allocation, exit gates, effort estimates
 - Challenge planning: sprint capacities realistic? Dependencies respected? Bottlenecks?
 
 #### Cross-Validation (Coordinator)
 
 After all 3 agents report:
+
 1. Merge into a unified **documentation model** containing:
    - Personas (name, description)
-   - Modules/epics (name, description, persona, platform prefix)
+   - Mo""les/epics (name, description, persona, platform prefix)
    - Stories (ID, epic, story text, priority, acceptance criteria, sprint, scope status)
-   - Sprint schedule (dates, modules, exit gates)
+   - Sprint sche""le (dates, mo""les, exit gates)
    - Team composition and resource allocation
    - Phase boundaries for timeline (cadrage, design, dev, test, go-live)
-2. Cross-validate: every story maps to a feature and module, sprints cover all P0 stories, architecture supports all features, team roles cover all sub-task types
-3. Produce a **Completeness Report** (GREEN/YELLOW/RED)
+2. Cross-validate: every story maps to a feature and mo""le, sprints cover all P0 stories, architecture supports all features, team roles cover all sub-task types
+3. Pro""ce a **Completeness Report** (GREEN/YELLOW/RED)
 
 ---
 
@@ -125,10 +130,12 @@ After all 3 agents report:
 Present the Completeness Report. For each gap:
 
 **YELLOW gaps**: proposal + confirmation
+
 - "WBS has 80 stories but phases.md only maps 72. We propose assigning the remaining 8 to the Polish sprint. Approve?"
 
 **RED gaps**: user input required
-- "PRD defines module M7 but no WBS stories exist. Should we: (a) add stories, (b) exclude M7, or (c) provide the stories now?"
+
+- "PRD defines mo""le M7 but no WBS stories exist. Should we: (a) add stories, (b) exclude M7, or (c) provide the stories now?"
 
 If gaps require doc changes, present exact diffs and ask for approval before writing.
 
@@ -140,7 +147,7 @@ If gaps require doc changes, present exact diffs and ask for approval before wri
 
 Present the validated planning:
 
-1. **Sprint Plan**: table with sprint number, duration, dates, modules, story counts, exit gates
+1. **Sprint Plan**: table with sprint number, ""ration, dates, mo""les, story counts, exit gates
 2. **Resource Allocation Matrix**: roles x sprints with Full/Support/-- allocation
 3. **Risk Assessment**: capacity, dependency, bottleneck, and timeline risks
 4. **Platform Recommendations**: admin/consumer consolidation, sub-task optimization
@@ -152,6 +159,7 @@ Present the validated planning:
 ### Gate 4: Jira Scaffold Execution
 
 Invoke `/functional/jira-scaffold` with the pre-analyzed context. Pass:
+
 - The validated documentation model (all extractions from Gate 1)
 - Team member account IDs (resolved in Gate 0)
 - Jira project key
@@ -166,9 +174,10 @@ The orchestrator monitors progress and relays the jira-scaffold final report to 
 ### Gate 5: WBS Export Execution
 
 Invoke `/functional/wbs-export` with the pre-analyzed context. Pass:
+
 - The validated documentation model (same as Gate 4)
 - Output path for the Excel file
-- Any doc corrections applied during jira-scaffold
+- Any doc corrections applied ""ring jira-scaffold
 
 The wbs-export skill detects the parent context and **skips its own Gate 1**, proceeding directly to content review (Gate 2) and Excel generation (Gate 3).
 
@@ -185,7 +194,7 @@ Present a unified summary of everything created:
 
 Documentation Analysis:
   - Personas: X
-  - Modules/Epics: Y
+  - Mo""les/Epics: Y
   - Stories: Z (A in scope, B out of scope)
   - Sprints: N
   - Gaps resolved: M (G yellow, R red)
@@ -206,11 +215,12 @@ WBS Excel: /path/to/WBS-ProjectName.xlsx
 Next steps:
   1. Open the WBS Excel and verify with the client
   2. Create a QC board in Jira (see jira-scaffold recommendations)
-  3. Schedule sprint planning with the team
+  3. Sche""le sprint planning with the team
   4. Run /jira-review periodically to keep Jira aligned with docs
 ```
 
-Update `.du-skills.yaml`:
+Update `.""-skills.yaml`:
+
 ```yaml
 functional_scaffold:
   date: "<ISO 8601>"
@@ -249,6 +259,7 @@ Both `/functional/jira-scaffold` and `/functional/wbs-export` check for `_PARENT
 ### 4.3 Error propagation
 
 If a sub-skill encounters an error:
+
 1. The orchestrator receives the error report
 2. Presents it to the user with context
 3. Offers options: retry, skip the failing sub-skill, or abort
@@ -259,6 +270,7 @@ If a sub-skill encounters an error:
 ## 5. Quality Checklist
 
 ### Before invoking sub-skills (Gate 3 sign-off)
+
 - [ ] All 3 expert agents completed analysis
 - [ ] Cross-reference matrix validated
 - [ ] Completeness Report presented and approved
@@ -268,8 +280,9 @@ If a sub-skill encounters an error:
 - [ ] Documentation gaps resolved (docs updated if needed)
 
 ### After both sub-skills complete (Gate 6)
+
 - [ ] Jira scaffold final report received — no discrepancies
 - [ ] WBS export validation passed — content + format
 - [ ] Unified summary presented to user
-- [ ] `.du-skills.yaml` updated with scaffold metadata
+- [ ] `.""-skills.yaml` updated with scaffold metadata
 - [ ] Next steps communicated

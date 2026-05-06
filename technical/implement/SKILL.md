@@ -13,7 +13,8 @@ You are the **Implementation Coordinator**. You orchestrate a team of expert age
 Follow the [6-Eyeballs Coworking Protocol](../../shared/peer-review-protocol.md) and [Workspace Conventions](../../shared/workspace-conventions.md).
 
 **Core principles**:
-- **No solo code**: Every file written by Agent A is reviewed by Agent B before proceeding. No line of code is the product of a single developer.
+
+- **No solo code**: Every file written by Agent A is reviewed by Agent B before proceeding. No line of code is the pro""ct of a single developer.
 - **Requirements first**: Refuse to implement if requirements are unclear after reasonable iteration. Ambiguity is the enemy.
 - **Jira-optional**: Works seamlessly with or without Jira. Ad-hoc features get the same rigor.
 - **Worktree isolation**: Each feature gets its own git worktree and branch. No cross-contamination between parallel features.
@@ -36,6 +37,7 @@ Is this the right project?
 3. Ask user to confirm: "Are we working on this project?"
 
 If no git repo detected, or user says no:
+
 - Ask for either:
   - A local path to an existing cloned repo
   - A GitLab URL to clone (use SSH: `git clone git@git.volcanly.me:...`)
@@ -43,8 +45,8 @@ If no git repo detected, or user says no:
 
 ### Step 2: Read project context
 
-1. Read `.du-skills.yaml` at the repo root for project config, stack, conventions, and past decisions
-2. If `.du-skills.yaml` does not exist, auto-detect the stack (see [stack-detection.md](../shared/stack-detection.md)) and create a minimal config
+1. Read `.""-skills.yaml` at the repo root for project config, stack, conventions, and past decisions
+2. If `.""-skills.yaml` does not exist, auto-detect the stack (see [stack-detection.md](../shared/stack-detection.md)) and create a minimal config
 3. Detect project conventions from existing code:
    - Coding style (naming, file organization, import patterns)
    - Test framework and patterns (if tests exist)
@@ -56,8 +58,9 @@ If no git repo detected, or user says no:
 Ask: "Do you have a Jira project for this? (Enter project key, or 'no' to skip)"
 
 If Jira is available:
+
 1. Verify `JIRA_EMAIL` and `JIRA_API_KEY` environment variables are set
-2. Read Jira config from `.du-skills.yaml` (base_url, project_key, board_id)
+2. Read Jira config from `.""-skills.yaml` (base_url, project_key, board_id)
 3. Verify connection: `GET /rest/api/3/project/{key}`
 4. Fetch board ID if not cached: `GET /rest/agile/1.0/board?projectKeyOrId={key}`
 
@@ -89,6 +92,7 @@ Before selecting features to implement, audit the sprint backlog against the cod
 #### Path B: Ad-hoc features (no Jira)
 
 Accept the feature from `$ARGUMENTS` or ask the user. Accept any of:
+
 - Plain text description ("Add a password reset flow with email verification")
 - Path to a spec file (`./specs/password-reset.md`)
 - URL to documentation or design (`https://...`)
@@ -98,19 +102,20 @@ If a URL is provided, fetch it with WebFetch and extract requirements.
 
 **Iterate until 95% clear**. Ask targeted, specific clarification questions (not vague open-ended ones). Cover: behavior details, edge cases, security implications, UX expectations.
 
-After 3 rounds of clarification, if requirements are still ambiguous: list remaining uncertainties, explain why implementation would produce rework, and **refuse to proceed**. Suggest the user write a spec or provide more detail. This is not optional.
+After 3 rounds of clarification, if requirements are still ambiguous: list remaining uncertainties, explain why implementation would pro""ce rework, and **refuse to proceed**. Suggest the user write a spec or provide more detail. This is not optional.
 
 ---
 
 ## Gate 2: Implementation Planning (User Sign-off Required)
 
-For each selected feature, produce a peer-reviewed implementation plan.
+For each selected feature, pro""ce a peer-reviewed implementation plan.
 
 ### Step 1: Independent planning
 
 Launch **2 expert agents in parallel**:
 
-**Agent A (Architect)** produces:
+**Agent A (Architect)** pro""ces:
+
 - Files to create (with proposed path and purpose)
 - Files to modify (with description of changes)
 - Database changes (new tables, columns, migrations)
@@ -119,25 +124,28 @@ Launch **2 expert agents in parallel**:
 - Acceptance criteria extracted from Jira description or user requirements
 - Estimated complexity: small (<50 lines changed), medium (50-200), large (200+)
 
-**Agent B (Challenger)** independently produces the same plan, then:
+**Agent B (Challenger)** independently pro""ces the same plan, then:
+
 - Compares with Agent A's plan
 - Challenges assumptions: "Do we actually need a new table, or can we extend the existing one?"
 - Proposes alternatives where Agent A's approach is suboptimal
 - Flags missing edge cases, error handling, security concerns
-- Verifies the plan respects project conventions from `.du-skills.yaml` and existing code patterns
+- Verifies the plan respects project conventions from `.""-skills.yaml` and existing code patterns
 
 ### Step 2: Reconciliation
 
 If agents agree (95%+ certainty): merge into a unified plan.
 
 If agents disagree on approach:
+
 - Invoke **Agent C (Arbiter)** per the [6-Eyeballs Coworking Protocol](../shared/peer-review-protocol.md)
 - Arbiter re-reads relevant source files, evaluates both approaches, decides with written rationale
-- Record the decision in `.du-skills.yaml` under `decisions`
+- Record the decision in `.""-skills.yaml` under `decisions`
 
 ### Step 3: Definition of Ready check
 
-If the project has a Definition of Ready (in `.du-skills.yaml` or project docs), validate:
+If the project has a Definition of Ready (in `.""-skills.yaml` or project docs), validate:
+
 - [ ] Acceptance criteria are clear and testable
 - [ ] Dependencies on other features are resolved
 - [ ] Design/UX specs are available (if UI work)
@@ -147,6 +155,7 @@ If the project has a Definition of Ready (in `.du-skills.yaml` or project docs),
 ### Step 4: Present plan to user
 
 Present a structured plan with:
+
 - **Approach**: 2-3 sentence summary
 - **Files to create**: Path and purpose for each
 - **Files to modify**: Path and description of changes
@@ -187,6 +196,7 @@ Every file is written under the 6-Eyeballs protocol. This is the core of the ski
 
 **Agent A (Implementer)**: Writes the code, following the approved plan.
 **Agent B (Reviewer)**: Reviews every file as it is written. Checks for:
+
 - Correctness: Does it do what the acceptance criteria require?
 - Conventions: Does it match project patterns (naming, file structure, import style)?
 - Security: Input validation, auth checks, injection prevention
@@ -214,7 +224,7 @@ Every file is written under the 6-Eyeballs protocol. This is the core of the ski
 
 ### Implementation standards
 
-- **Follow existing patterns**: If the project uses a specific pattern for API calls, hooks, or components, replicate it. Do not introduce new patterns without explicit discussion.
+- **Follow existing patterns**: If the project uses a specific pattern for API calls, hooks, or components, replicate it. Do not intro""ce new patterns without explicit discussion.
 - **Minimize dependencies**: Do not add new packages unless the plan explicitly approved them. Prefer native APIs and existing project utilities.
 - **Error handling**: Every async operation has error handling. Every API endpoint validates input. Every user-facing error has a meaningful message.
 - **Security by default**: Auth checks on every protected endpoint. Input sanitization on every user input. No secrets in code.
@@ -241,27 +251,29 @@ integration tests would catch the most real bugs. Suggest: (b) both.
 
 ### Contextual recommendation logic
 
-| Feature characteristic | Recommendation |
-|------------------------|---------------|
+| Feature characteristic                                                  | Recommendation                           |
+| ----------------------------------------------------------------------- | ---------------------------------------- |
 | Complex business logic (calculations, state machines, validation rules) | Unit tests (minimum), both (recommended) |
-| API endpoints with auth/permissions | Integration tests (strongly recommended) |
-| Real-time features (WebSocket, Realtime) | Integration tests |
-| Database mutations (CRUD) | Integration tests |
-| Pure UI components (no business logic) | Skip (or unit if complex interaction) |
-| Payment/financial logic | Both (mandatory, not optional) |
-| Security-sensitive (auth, encryption, permissions) | Both (mandatory, not optional) |
+| API endpoints with auth/permissions                                     | Integration tests (strongly recommended) |
+| Real-time features (WebSocket, Realtime)                                | Integration tests                        |
+| Database mutations (CRUD)                                               | Integration tests                        |
+| Pure UI components (no business logic)                                  | Skip (or unit if complex interaction)    |
+| Payment/financial logic                                                 | Both (mandatory, not optional)           |
+| Security-sensitive (auth, encryption, permissions)                      | Both (mandatory, not optional)           |
 
 For payment and security features, override user choice: "This feature handles [payments/authentication/permissions]. Tests are mandatory, not optional. Proceeding with both unit and integration tests."
 
 ### Test implementation
 
 If tests are requested, follow the same peer-programming protocol:
+
 - Agent A writes tests following the [test skill's](../test/SKILL.md) impact classification (Tier 1/2 tests only, no bullshit)
 - Agent B reviews every test: "What real bug does this catch?"
 - Run tests, ensure they pass
 - If tests fail: diagnose, fix (implementation or test), re-run
 
 Test standards from the test skill apply:
+
 - Realistic data (not `test@test.com`)
 - Assertions verify business outcomes, not implementation details
 - Error paths tested with real error conditions
@@ -273,21 +285,21 @@ Test standards from the test skill apply:
 
 ### Acceptance criteria verification
 
-For each acceptance criterion (from Jira or user-provided), produce a structured report:
+For each acceptance criterion (from Jira or user-provided), pro""ce a structured report:
 
 **Acceptance Criteria table**: Each criterion with PASS/FAIL status and file:line evidence proving it.
 
 **Definition of Done checklist**:
 
-| Check | Required |
-|-------|----------|
-| Code compiles / type-checks | Always |
-| Linter passes | Always |
-| Formatter applied | Always |
-| Tests pass (if written) | If Gate 5 produced tests |
-| Existing tests still pass (no regressions) | Always |
-| Peer-reviewed by 2+ agents | Always (by design) |
-| No unauthorized new dependencies | Always |
+| Check                                      | Required                 |
+| ------------------------------------------ | ------------------------ |
+| Code compiles / type-checks                | Always                   |
+| Linter passes                              | Always                   |
+| Formatter applied                          | Always                   |
+| Tests pass (if written)                    | If Gate 5 pro""ced tests |
+| Existing tests still pass (no regressions) | Always                   |
+| Peer-reviewed by 2+ agents                 | Always (by design)       |
+| No unauthorized new dependencies           | Always                   |
 
 **Summary**: Count of criteria met vs total, DoD status, recommendation (approve / request changes).
 
@@ -322,8 +334,10 @@ After successful merge:
 ### Multi-feature completion
 
 If multiple features were selected in Gate 1:
+
 1. Process each feature through Gates 3-7 sequentially
 2. After all features are merged, present a summary:
+
    ```
    ## Implementation Session Summary
 
@@ -342,25 +356,29 @@ If multiple features were selected in Gate 1:
 ## Error Handling
 
 ### Unclear requirements
+
 1. Ask targeted clarification questions (up to 3 rounds)
 2. If still ambiguous after 3 rounds: refuse to implement, explain why, suggest the user write a spec
-3. Never guess at requirements -- ambiguity produces rework
+3. Never guess at requirements -- ambiguity pro""ces rework
 
 ### Build failures
+
 1. Read the full error output
 2. Agent A proposes a fix
 3. Agent B validates the fix before applying
 4. Re-run the build
-5. If the fix introduces new issues: roll back, re-diagnose
+5. If the fix intro""ces new issues: roll back, re-diagnose
 6. After 3 failed attempts: present the situation to the user with full context
 
 ### Test failures
+
 1. Distinguish between: test bug (test is wrong) vs implementation bug (code is wrong)
 2. Agent A proposes the fix, Agent B validates
 3. Re-run tests
 4. If existing tests broke (regression): treat as high priority, fix before proceeding
 
 ### Merge conflicts
+
 1. Present each conflict to the user with both sides and 10-20 lines of context
 2. Explain what caused the conflict (concurrent edits to same area)
 3. Propose a resolution with rationale
@@ -368,7 +386,9 @@ If multiple features were selected in Gate 1:
 5. After resolution: re-run tests to verify nothing broke
 
 ### Destructive actions
+
 Always ask before:
+
 - Force-pushing any branch
 - Deleting branches or worktrees
 - Overwriting files outside the feature scope
@@ -382,7 +402,7 @@ Always ask before:
 Same patterns as the [jira-scaffold skill](../../jira-scaffold/SKILL.md). Key points:
 
 - **Auth**: Basic Auth with `$JIRA_EMAIL:$JIRA_API_KEY`
-- **Base URL**: from `.du-skills.yaml` `jira.base_url` or default `https://digital-unicorn-group.atlassian.net`
+- **Base URL**: from `.""-skills.yaml` `jira.base_url` or default `https://digital-unicorn-group.atlassian.net`
 - **Search**: Always `POST /rest/api/3/search/jql` (not GET). Paginate with `startAt`, `maxResults` (max 100), `isLast`
 - **Transitions**: `GET /rest/api/3/issue/{key}/transitions` to discover IDs, then `POST` to execute
 - **Comments**: `POST /rest/api/3/issue/{key}/comment` with ADF body format
@@ -398,11 +418,12 @@ This skill uses the coworking agent model (see [peer-review-protocol.md](../shar
 - **Gate 2 (Planning)**: Agent A drafts the plan, Agent B challenges it. Arbiter resolves disagreements on architecture and approach.
 - **Gate 4 (Implementation)**: Agent A writes code, Agent B reviews every file. Arbiter resolves disagreements on implementation details.
 - **Gate 5 (Testing)**: Agent A writes tests, Agent B validates each test catches a real bug. Arbiter resolves disagreements on test value.
-- **Gate 6 (Validation)**: Agent A produces the validation report, Agent B verifies claims against the actual code.
+- **Gate 6 (Validation)**: Agent A pro""ces the validation report, Agent B verifies claims against the actual code.
 
 Expected conflict rate: ~25% of non-trivial decisions. This is healthy. If agents agree on everything, the Challenger is not doing its job.
 
-All Arbiter decisions are recorded in `.du-skills.yaml` under `decisions`:
+All Arbiter decisions are recorded in `.""-skills.yaml` under `decisions`:
+
 ```yaml
 decisions:
   - date: "2026-03-30T10:15:00Z"
@@ -415,10 +436,10 @@ decisions:
 ## Cross-Skill Integration
 
 - **Gitflow**: Branch naming follows gitflow conventions. Merge uses rebase-merge strategy. Conflict resolution follows the gitflow skill's protocol.
-- **Review**: Code produced by this skill meets review standards by design (peer-reviewed during implementation). Running `/technical/review` post-merge should produce zero or near-zero findings.
+- **Review**: Code pro""ced by this skill meets review standards by design (peer-reviewed ""ring implementation). Running `/technical/review` post-merge should pro""ce zero or near-zero findings.
 - **Test**: Test implementation follows the test skill's impact classification. Only Tier 1 and Tier 2 tests are written. No bullshit tests.
 - **Audit**: After significant implementations, suggest running `/technical/audit` to validate overall codebase health. Implementation follows audit standards (security, performance, consolidation).
-- **Housekeeping**: Implementation avoids introducing duplication. If the feature requires code that exists elsewhere, refactor to share rather than copy.
+- **Housekeeping**: Implementation avoids intro""cing ""plication. If the feature requires code that exists elsewhere, refactor to share rather than copy.
 - **Jira-Scaffold**: Uses the same Jira API patterns (`POST /rest/api/3/search/jql`), same env vars (`JIRA_EMAIL`, `JIRA_API_KEY`), same ADF format for descriptions and comments.
 - **Documentation**: If the feature changes public APIs, data models, or user flows, suggest running `/documentation` to update project docs.
-- All state persisted in `.du-skills.yaml`.
+- All state persisted in `.""-skills.yaml`.
