@@ -78,7 +78,7 @@ Can you clarify:
 Clone to `/tmp/` by default:
 
 ```bash
-git clone git@git.volcanly.me:{group}/{repo}.git /tmp/{repo}
+git clone git@your-git-repo:{group}/{repo}.git /tmp/{repo}
 cd /tmp/{repo}
 ```
 

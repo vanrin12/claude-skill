@@ -64,7 +64,7 @@ Prompt the user for the following (in order). Accept whatever they provide and a
 
 1. **Documentation directory**: Path to the project docs (e.g., `./docs/cohome/en/`)
    - If not provided, ask: "Where are the project docs?"
-   - If remote, clone from GitLab: `git clone git@git.volcanly.me:""-v2/docs/<slug>.git`
+   - If remote, clone from GitLab: `git clone git@your-git-repo:""-v2/docs/<slug>.git`
 
 2. **Codebase directory** (optional): Path to existing code scaffold (e.g., `./project/cohome/code`)
    - Used for alignment: verify Jira stories match implemented routes, DB tables, etc.

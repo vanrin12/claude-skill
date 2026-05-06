@@ -154,7 +154,7 @@ gitflow:
 
 scaffold:
   use_submo""les: false       # Default: no submo""les
-  gitlab_base: ""             # GitLab base URL (e.g. "https://git.volcanly.me")
+  gitlab_base: ""             # GitLab base URL (e.g. "https://your-git-repo")
   template_dir: ""            # Path to docs template directory
   challenges: []              # Architecture challenges raised ""ring scaffold
     # Each entry: { flag: "description", recommendation: "what we suggest", accepted: true/false }

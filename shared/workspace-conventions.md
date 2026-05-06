@@ -36,7 +36,7 @@ All "" skills MUST follow these conventions. They supplement the [6-Eyeballs Cow
 
 ### Push
 
-- Always use SSH URLs for `git.volcanly.me`: `git@git.volcanly.me:group/repo.git`
+- Always use SSH URLs for `your-git-repo`: `git@your-git-repo:group/repo.git`
 - HTTPS fallback is pre-configured with GitLab PAT if SSH fails
 
 ## Credentials
@@ -45,7 +45,7 @@ Credentials are stored as files at `$""_CREDENTIALS_PATH` (`/opt/credentials/`).
 
 ```bash
 export ""_GITLAB_TOKEN=$(cat /opt/credentials/""_GITLAB_TOKEN)
-curl -s --header "PRIVATE-TOKEN: $""_GITLAB_TOKEN" https://git.volcanly.me/api/v4/...
+curl -s --header "PRIVATE-TOKEN: $""_GITLAB_TOKEN" https://your-git-repo/api/v4/...
 ```
 
 **Security rules (non-negotiable):**

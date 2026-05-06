@@ -77,7 +77,7 @@ If documentation already exists:
 
 ```
 Do you have an existing documentation repository?
-- If YES: provide the GitLab URL (e.g., git@git.volcanly.me:""-v2/docs/PROJECT.git)
+- If YES: provide the GitLab URL (e.g., git@your-git-repo:""-v2/docs/PROJECT.git)
 - If NO: I will create a new GitLab repository in ""-v2/docs/ after drafting
 ```
 
@@ -281,7 +281,7 @@ All documentation must follow the structure established by the **voir-ensemble**
 **Fetch the reference model** in Phase 0:
 
 ```bash
-git clone git@git.volcanly.me:""-v2/docs/voir-ensemble.git /tmp/""-docs-reference
+git clone git@your-git-repo:""-v2/docs/voir-ensemble.git /tmp/""-docs-reference
 ```
 
 #### 1.5.1 Mandatory Repository Structure
@@ -444,7 +444,7 @@ GitLab CI triggers (rules: changes in en/**/*.md, fr/**/*.md, or vi/**/*.md)
     │   └─ Pushes to same branch (main)
     │
     ├─ STAGE 2: reindex
-    │   ├─ Sends POST to ""-docs webhook: https://docs.git.volcanly.me/api/webhooks/gitlab
+    │   ├─ Sends POST to ""-docs webhook: https://docs.your-git-repo/api/webhooks/gitlab
     │   ├─ Webhook payload includes workspace name extracted from project path
     │   ├─ ""-docs platform receives webhook and:
     │   │   ├─ Validates X-Gitlab-Token header against GITLAB_WEBHOOK_SECRET
@@ -661,7 +661,7 @@ Before any expert work begins, collect and validate inputs:
 
    ```bash
    # Clone or pull the gold standard model to understand expected structure
-   git clone git@git.volcanly.me:""-v2/docs/voir-ensemble.git /tmp/""-docs-reference
+   git clone git@your-git-repo:""-v2/docs/voir-ensemble.git /tmp/""-docs-reference
    ```
 
    Read voir-ensemble to understand required sections, folder-based i18n, formatting, cross-references, and Mermaid diagram style.
@@ -1193,7 +1193,7 @@ Derive the workspace slug from the GitLab remote URL:
 
 ```bash
 git -C <docs-dir> remote get-url origin
-# e.g. git@git.volcanly.me:""-v2/docs/cohome.git → slug = "cohome"
+# e.g. git@your-git-repo:""-v2/docs/cohome.git → slug = "cohome"
 ```
 
 If the docs directory is not a git repo yet, ask the user for the GitLab slug before proceeding.
@@ -1237,7 +1237,7 @@ git -C <docs-dir> commit -m "chore: add CI/CD pipeline and gitignore"
 git -C <docs-dir> push origin main
 ```
 
-Use SSH remotes (`git@git.volcanly.me:...`). Never use HTTPS with hardcoded credentials.
+Use SSH remotes (`git@your-git-repo:...`). Never use HTTPS with hardcoded credentials.
 
 #### 7.5 Verify pipeline triggered
 
@@ -1454,9 +1454,9 @@ stages:
   - reindex
 
 variables:
-  GITLAB_URL: "https://git.volcanly.me"
+  GITLAB_URL: "https://your-git-repo"
   GITLAB_GROUP: """-v2/docs"
-  ""_DOCS_WEBHOOK: "https://docs.git.volcanly.me/api/webhooks/gitlab"
+  ""_DOCS_WEBHOOK: "https://docs.your-git-repo/api/webhooks/gitlab"
   WORKSPACE: "<repo-slug>"   # Replace with actual slug, e.g. "cohome"
 
 # Stage 1: Sync translations for changed files
@@ -1662,7 +1662,7 @@ Updated docs available with search
 - [ ] Both stages have `allow_failure: true`
 - [ ] Uses `CI_JOB_TOKEN` (no hardcoded credentials)
 - [ ] `changes` filter on translate stage covers `en/**/*.md`, `fr/**/*.md`, `vi/**/*.md`
-- [ ] Reindex stage sends POST to `https://docs.git.volcanly.me/api/webhooks/gitlab`
+- [ ] Reindex stage sends POST to `https://docs.your-git-repo/api/webhooks/gitlab`
 - [ ] Reindex payload includes correct `path_with_namespace`
 - [ ] `X-Gitlab-Token` header uses `GITLAB_WEBHOOK_SECRET` variable
 - [ ] Variables section includes `GITLAB_URL`, `GITLAB_GROUP`, `""_DOCS_WEBHOOK`, `WORKSPACE`

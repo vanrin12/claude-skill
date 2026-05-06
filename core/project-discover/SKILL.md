@@ -61,13 +61,13 @@ Search all 4 platforms in parallel. For each, use the GitLab and Jira APIs with 
 
 ### 1.1 GitLab Search
 
-**API**: `https://git.volcanly.me/api/v4` with `PRIVATE-TOKEN: $""_GITLAB_TOKEN`
+**API**: `https://your-git-repo/api/v4` with `PRIVATE-TOKEN: $""_GITLAB_TOKEN`
 
 1. **List all groups** (paginated):
 
    ```bash
    curl -s --header "PRIVATE-TOKEN: $""_GITLAB_TOKEN" \
-     "https://git.volcanly.me/api/v4/groups?per_page=100&page=1"
+     "https://your-git-repo/api/v4/groups?per_page=100&page=1"
    ```
 
    Collect all group names and paths.
@@ -78,14 +78,14 @@ Search all 4 platforms in parallel. For each, use the GitLab and Jira APIs with 
 
    ```bash
    curl -s --header "PRIVATE-TOKEN: $""_GITLAB_TOKEN" \
-     "https://git.volcanly.me/api/v4/groups/{group_id}/projects?per_page=100"
+     "https://your-git-repo/api/v4/groups/{group_id}/projects?per_page=100"
    ```
 
 4. **Also search top-level projects** (legacy repos may not be in a group):
 
    ```bash
    curl -s --header "PRIVATE-TOKEN: $""_GITLAB_TOKEN" \
-     "https://git.volcanly.me/api/v4/projects?search={term}&per_page=20"
+     "https://your-git-repo/api/v4/projects?search={term}&per_page=20"
    ```
 
 5. Record all matches: group name, group URL, list of repos with URLs and last activity dates.
@@ -98,7 +98,7 @@ Search all 4 platforms in parallel. For each, use the GitLab and Jira APIs with 
 
    ```bash
    curl -s --header "PRIVATE-TOKEN: $""_GITLAB_TOKEN" \
-     "https://git.volcanly.me/api/v4/groups/""-v2%2Fdocs/projects?per_page=100"
+     "https://your-git-repo/api/v4/groups/""-v2%2Fdocs/projects?per_page=100"
    ```
 
 2. **Match against search terms**: Compare repo names/paths against all search terms.
@@ -343,12 +343,12 @@ project:
       group: "{group-path}"
       repos:
         - name: "{repo}"
-          url: "git@git.volcanly.me:{group}/{repo}.git"
+          url: "git@your-git-repo:{group}/{repo}.git"
     jira:
       key: "{PROJ}"
       url: "https://digital-unicorn-group.atlassian.net/browse/{PROJ}"
     docs:
-      url: "git@git.volcanly.me:""-v2/docs/{slug}.git"
+      url: "git@your-git-repo:""-v2/docs/{slug}.git"
     drive:
       url: "{folder-url}"
 ```

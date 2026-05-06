@@ -49,7 +49,7 @@ Prompt the user for the following (accept whatever they provide, ask for what is
 
 1. **Documentation directory** (required): Path to project docs (e.g., `./docs/project/en/`)
    - If not provided, ask: "Where are the project docs?"
-   - If remote, clone from GitLab: `git clone git@git.volcanly.me:""-v2/docs/<slug>.git`
+   - If remote, clone from GitLab: `git clone git@your-git-repo:""-v2/docs/<slug>.git`
 
 2. **Jira project**: Either:
    - An existing Jira project key (e.g., `""COH`), OR

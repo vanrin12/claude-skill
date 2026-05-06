@@ -2,10 +2,10 @@
 set -euo pipefail
 
 # "" Skills installer for Claude Code
-# Usage: curl -fsSL https://git.volcanly.me/""-v2/claude-skills/-/raw/main/install.sh | bash
+# Usage: curl -fsSL https://your-git-repo/""-v2/claude-skills/-/raw/main/install.sh | bash
 # Or:    ./install.sh [target-project-dir]
 
-SKILLS_REPO="git@git.volcanly.me:""-v2/claude-skills.git"
+SKILLS_REPO="git@your-git-repo:""-v2/claude-skills.git"
 SKILLS_DIR="${HOME}/.local/share/""-skills"
 
 # Skills organized by category: folder/skill-name

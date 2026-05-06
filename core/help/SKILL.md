@@ -198,7 +198,7 @@ As a project manager, your most common workflows will be:
 
 ```
 Credentials & Access (pre-configured):
-- GitLab:  git.volcanly.me        (SSH + PAT)
+- GitLab:  your-git-repo        (SSH + PAT)
 - Jira:    digital-unicorn-group   (API key)
 - GDrive:  Shared project root     (pending service account)
 

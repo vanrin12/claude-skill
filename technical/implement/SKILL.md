@@ -40,7 +40,7 @@ If no git repo detected, or user says no:
 
 - Ask for either:
   - A local path to an existing cloned repo
-  - A GitLab URL to clone (use SSH: `git clone git@git.volcanly.me:...`)
+  - A GitLab URL to clone (use SSH: `git clone git@your-git-repo:...`)
 - Clone or navigate to the provided project
 
 ### Step 2: Read project context

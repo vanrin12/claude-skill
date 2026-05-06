@@ -7,7 +7,7 @@ Professional-grade skills for software development agencies. Supports mobile, we
 ### One-line install
 
 ```bash
-git clone git@git.volcanly.me:""-v2/claude-skills.git ~/.local/share/""-skills
+git clone git@your-git-repo:""-v2/claude-skills.git ~/.local/share/""-skills
 ~/.local/share/""-skills/install.sh /path/to/your/project
 ```
 
@@ -15,7 +15,7 @@ git clone git@git.volcanly.me:""-v2/claude-skills.git ~/.local/share/""-skills
 
 ```bash
 # Clone the skills repo
-git clone git@git.volcanly.me:""-v2/claude-skills.git ~/.local/share/""-skills
+git clone git@your-git-repo:""-v2/claude-skills.git ~/.local/share/""-skills
 
 # In any project, symlink the skills
 cd /path/to/your/project

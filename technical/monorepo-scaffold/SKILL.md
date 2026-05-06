@@ -117,7 +117,7 @@ Ask the user for the docs directory path:
 - If the user has docs locally: use that path directly
 - If the user does not have docs locally: ask for the project slug and clone from GitLab:
   ```bash
-  git clone git@git.volcanly.me:""-v2/docs/<project-slug>.git /tmp/""-skills/docs-<project-slug>
+  git clone git@your-git-repo:""-v2/docs/<project-slug>.git /tmp/""-skills/docs-<project-slug>
   ```
 - If docs repo exists locally but may be stale: `git pull` to get latest
 - Confirm the docs directory contains the expected structure (01-pro""ct/, 03-technical/, etc.)
@@ -170,7 +170,7 @@ Do you have existing code repositories for this project?
    ```bash
    # Search GitLab for matching repositories
    curl -s --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-     "https://git.volcanly.me/api/v4/projects?search=<project-name>&per_page=100"
+     "https://your-git-repo/api/v4/projects?search=<project-name>&per_page=100"
    ```
 
 2. **For each repo found**:
@@ -197,7 +197,7 @@ Do you have existing code repositories for this project?
 
 5. **Archive old repos** (after user confirms):
    - Tag with `archive/<date>` in GitLab
-   - Move to `git@git.volcanly.me:""-v2/archive/<project>.git`
+   - Move to `git@your-git-repo:""-v2/archive/<project>.git`
    - Update README with link to new repo
 
 #### 0.4 GitLab Group and Repository Setup
@@ -207,7 +207,7 @@ Do you have existing code repositories for this project?
 ```bash
 # List GitLab groups
 curl -s --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-  "https://git.volcanly.me/api/v4/groups?search=<project-or-client-name>"
+  "https://your-git-repo/api/v4/groups?search=<project-or-client-name>"
 ```
 
 **If group exists**:
@@ -222,7 +222,7 @@ curl -s --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
   ```bash
   curl -s --request POST \
     --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-    "https://git.volcanly.me/api/v4/groups" \
+    "https://your-git-repo/api/v4/groups" \
     --data "name=<Project Name>" \
     --data "path=<project-slug>" \
     --data "parent_id=""-v2"  # Under the ""-v2 parent group
@@ -234,7 +234,7 @@ curl -s --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
 # If repo doesn't exist, create it
 curl -s --request POST \
   --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-  "https://git.volcanly.me/api/v4/projects" \
+  "https://your-git-repo/api/v4/projects" \
   --data "name=<project>-monorepo" \
   --data "namespace_id=<group-id>" \
   --data "initialize_with_readme=true"
@@ -244,7 +244,7 @@ curl -s --request POST \
 
 - If creating fresh: `/tmp/""-skills/<project-slug>-scaffold/`
 - If user has a repo: generate into that directory
-- Final step: push to GitLab: `git push git@git.volcanly.me:<group>/<repo>.git`
+- Final step: push to GitLab: `git push git@your-git-repo:<group>/<repo>.git`
 
 #### 0.5 Validation Gate (EXECUTABLE — Must pass before Phase 1)
 
@@ -543,7 +543,7 @@ After all agents complete Phase 4, every file is reviewed by at least one agent 
    #
    # Requires: GITLAB_TOKEN and PROJECT_ID environment variables
 
-   GITLAB_URL="${GITLAB_URL:-https://git.volcanly.me}"
+   GITLAB_URL="${GITLAB_URL:-https://your-git-repo}"
    API="$GITLAB_URL/api/v4/projects/$PROJECT_ID"
 
    # Merge method: rebase merge only (linear history)
